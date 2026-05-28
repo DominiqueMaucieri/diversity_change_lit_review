@@ -1,0 +1,280 @@
+---
+title: "Creating literature review workflow"
+subtitle: "For extracting diversity changes over space and time"
+author: '[Dominique Maucieri](https://www.dominiquemaucieri.com)'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  pdf_document:
+    toc: yes
+    toc_depth: 4
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# 01.0 SETUP
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, tidy = TRUE, message=FALSE)
+
+#To clear the workspace
+rm(list = ls(all = T))
+
+# My theme
+theme.custom <- function () {
+  theme_bw(base_size = 12, 
+           base_family = "serif") +
+  theme(panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(colour = "black"),
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12, face = "plain"),
+    legend.text = element_text(size = 12, face = "plain"),
+    legend.title = element_text(size = 14, face = "bold"),
+    panel.background = element_rect(fill = NA, color = NA),
+    plot.background = element_rect(fill = NA, color = NA),
+    legend.background = element_rect(fill = NA, color = NA),
+    legend.box.background = element_rect(fill = NA, color = NA))
+}
+
+# Packages
+library(here)
+library(readxl)
+library(NLP)
+library(tm)
+library(tokenizers)
+library(tidyverse)
+library(tidytext)
+library(caret)
+library(e1071)
+library(SnowballC)
+library(synthesisr)
+library(stringi)
+
+
+# greek
+greek_to_english <- c(
+  "α" = "alpha",   "Α" = "alpha",
+  "β" = "beta",    "Β" = "beta",
+  "γ" = "gamma",   "Γ" = "gamma",
+  "δ" = "delta",   "Δ" = "delta",
+  "ε" = "epsilon", "Ε" = "epsilon",
+  "ζ" = "zeta",    "Ζ" = "zeta",
+  "η" = "eta",     "Η" = "eta",
+  "θ" = "theta",   "Θ" = "theta",
+  "ι" = "iota",    "Ι" = "iota",
+  "κ" = "kappa",   "Κ" = "kappa",
+  "λ" = "lambda",  "Λ" = "lambda",
+  "μ" = "mu",      "Μ" = "mu",
+  "ν" = "nu",      "Ν" = "nu",
+  "ξ" = "xi",      "Ξ" = "xi",
+  "ο" = "omicron", "Ο" = "omicron",
+  "π" = "pi",      "Π" = "pi",
+  "ρ" = "rho",     "Ρ" = "rho",
+  "σ" = "sigma",   "Σ" = "sigma",
+  "τ" = "tau",     "Τ" = "tau",
+  "υ" = "upsilon", "Υ" = "upsilon",
+  "φ" = "phi",     "Φ" = "phi",
+  "χ" = "chi",     "Χ" = "chi",
+  "ψ" = "psi",     "Ψ" = "psi",
+  "ω" = "omega",   "Ω" = "omega"
+)
+
+
+# functions
+
+tidy_text <- function(dataframe) {
+  dataframe %>%
+    mutate(title_abstract = str_replace_all(title_abstract, greek_to_english)) %>%
+    unnest_tokens(word, title_abstract, token = "words", to_lower = TRUE) %>%
+    anti_join(stop_words, by = "word") %>%
+    mutate(word = wordStem(word)) %>%
+    filter(!str_detect(word, "[0-9]")) %>%
+    filter(word != "" & !is.na(word))%>%
+    filter(!str_detect(word, "[^a-zA-Z]")) 
+}
+
+```
+
+
+# Creating initial training data set
+```{r, eval = FALSE}
+# creating training set
+example_abstracts <- readLines(here("example_training" ,"wos_download_full.ris"), warn = FALSE)
+
+end_of_record_indices <- which(example_abstracts == "ER  -")
+
+records <- list()
+start_idx <- 1
+
+for (end_idx in end_of_record_indices) {
+  records[[length(records) + 1]] <- example_abstracts[start_idx:end_idx]
+  start_idx <- end_idx + 1
+}
+
+set.seed(756)
+training_records <- sample(records, length(records)*0.1)
+
+output_lines <- unlist(training_records)
+
+writeLines(output_lines, con = here("example_training","initial_covidence_training.ris"), useBytes = TRUE)
+```
+
+```{r}
+
+initial_training_irrelevant <- read.csv(here("example_training", "initial_training_irrelevant.csv")) %>% 
+  mutate(vote = "Irrelevant")
+initial_training_included <- read.csv(here("example_training", "initial_training_included.csv")) %>% 
+  mutate(vote = "Relevant")
+initial_training_excluded <- read.csv(here("example_training", "initial_training_excluded.csv")) %>% 
+  mutate(vote = "Relevant")
+
+initial_training_votes <- rbind(initial_training_irrelevant, initial_training_included, 
+                                initial_training_excluded) %>%
+  as.data.frame() %>%
+  mutate(matching_title = tolower(str_replace_all(Title, "[^a-zA-Z0-9]", ""))) %>%
+  select(matching_title, vote) %>%
+  distinct(matching_title, .keep_all = TRUE)
+
+```
+
+```{r}
+wos_download_full <- read_refs(here("example_training" ,"wos_download_full.ris")) %>%
+  mutate(
+    paper_id = row_number(),
+    matching_title = tolower(str_replace_all(title, "[^a-zA-Z0-9]", "")))
+
+initial_training_papers_with_votes <- wos_download_full %>%
+  inner_join(initial_training_votes, by = "matching_title") %>%
+  mutate(title_abstract = paste(title, abstract, sep = " "))
+```
+
+# cleaning up text data and tokenizing 
+
+```{r}
+
+initial_training_tidy <- initial_training_papers_with_votes %>%
+  tidy_text()
+
+
+#only train on words that appear at least twice to remove any weird wrong words
+initial_training_wordbank <- initial_training_tidy %>%
+  count(word) %>%
+  filter(n >= 2) %>%
+  pull(word)
+
+
+initial_training_tidy_counts <- initial_training_tidy %>%
+  filter(word %in% initial_training_wordbank) %>%
+  count(paper_id, word) %>%
+  pivot_wider(names_from = word, values_from = n, values_fill = 0) %>%
+  left_join(
+    initial_training_papers_with_votes %>% 
+      dplyr::select(paper_id, vote), 
+    by = "paper_id"
+  ) %>%
+  mutate(vote = as.factor(vote)) 
+
+initial_training_tidy_counts_noid <- initial_training_tidy_counts %>%
+  dplyr::select(vote, all_of(initial_training_wordbank))
+
+
+```
+
+
+# lets train that model 
+
+```{r}
+svm_model <- svm(vote ~ ., data = initial_training_tidy_counts_noid, 
+                 kernel = "linear", cost = 1, probability = TRUE)
+```
+
+
+
+
+# now lets try this on the other abstracts
+
+
+
+```{r}
+the_rest_of_the_abstracts <- wos_download_full %>% 
+  filter(!paper_id %in% initial_training_papers_with_votes$paper_id) %>%
+  mutate(title_abstract = paste(title, abstract, sep = " "))
+
+
+the_rest_of_the_abstracts_tidy <- the_rest_of_the_abstracts %>%
+  tidy_text() %>%
+  mutate(word = make.names(word))
+
+
+the_rest_of_the_abstracts_counts_nonzeros <- the_rest_of_the_abstracts_tidy %>%
+  filter(word %in% initial_training_wordbank) %>%
+  count(paper_id, word) %>%
+  pivot_wider(names_from = word, values_from = n, values_fill = 0)
+
+
+missing_cols <- setdiff(initial_training_wordbank, 
+                        colnames(the_rest_of_the_abstracts_counts_nonzeros))
+the_rest_of_the_abstracts_counts_zeros <- as.data.frame(matrix(0, nrow = nrow(the_rest_of_the_abstracts_counts_nonzeros), 
+                                ncol = length(missing_cols)))
+colnames(the_rest_of_the_abstracts_counts_zeros) <- missing_cols
+
+
+the_rest_of_the_abstracts_counts <- cbind(the_rest_of_the_abstracts_counts_nonzeros, 
+                                          the_rest_of_the_abstracts_counts_zeros) %>%
+  dplyr::select(all_of(initial_training_wordbank)) %>%
+  as.matrix()
+```
+
+
+```{r}
+predictions_round_1 <- predict(svm_model, 
+                               newdata = the_rest_of_the_abstracts_counts, 
+                               decision.values = TRUE)
+decision.values <- data.frame(
+  paper_id = the_rest_of_the_abstracts_counts_nonzeros$paper_id,
+  distance = attr(predictions_round_1, "decision.values")[, 1]
+  )
+                              
+
+the_rest_of_the_abstracts_scored <- the_rest_of_the_abstracts %>%
+  left_join(decision.values, by = "paper_id") %>%
+  mutate(
+    Hyperplane_Distance = ifelse(is.na(distance), 0, distance),
+    Probability_Relevant = 1 / (1 + exp(-Hyperplane_Distance))
+  )
+```
+
+
+# export the next batch for classification
+
+```{r}
+next_batch_ids <- scored_unlabeled %>%
+  mutate(uncertainty = abs(Probability_Relevant - 0.5)) %>%
+  arrange(uncertainty) %>%
+  head(50) %>%
+  pull(paper_id)
+```
+
+
+```{r, eval = FALSE}
+#exporting next batch
+example_abstracts <- readLines(here("example_training" ,"wos_download_full.ris"), warn = FALSE)
+
+end_of_record_indices <- which(example_abstracts == "ER  -")
+
+records <- list()
+start_idx <- 1
+
+for (end_idx in end_of_record_indices) {
+  records[[length(records) + 1]] <- example_abstracts[start_idx:end_idx]
+  start_idx <- end_idx + 1
+}
+
+output_lines_for_round_2 <- records[next_batch_ids] %>%
+  unlist()
+
+writeLines(output_lines_for_round_2, con = here("example_training","covidence_round_2.ris"), useBytes = TRUE)
+
+```
+
