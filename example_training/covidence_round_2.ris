@@ -1,0 +1,1026 @@
+
+TY  - JOUR
+AU  - Osorio, JDG
+AU  - Galiano, SGG
+TI  - Building hazard maps of extreme daily rainy events from PDF ensemble, via REA method, on Senegal River Basin
+T2  - HYDROLOGY AND EARTH SYSTEM SCIENCES
+AB  - The Sudano-Sahelian zone of West Africa, one of the poorest of the Earth, is characterized by high rainfall variability and rapid population growth. In this region, heavy storm events frequently cause extensive damage. Nonetheless, the projections for change in extreme rainfall values have shown a great divergence between Regional Climate Models (RCM), increasing the forecast uncertainty. Novel methodologies should be applied, taking into account both the variability provided by different RCMs, as well as the non-stationary nature of time series for the building of hazard maps of extreme rainfall events. The present work focuses on the probability density functions (PDFs)-based evaluation and a simple quantitative measure of how well each RCM considered can capture the observed annual maximum daily rainfall (AMDR) series on the Senegal River basin. Since meaningful trends have been detected in historical rainfall time series for the region, non-stationary probabilistic models were used to fit the PDF parameters to the AMDR time series. In the development of PDF ensemble by boot-strapping techniques, Reliability Ensemble Averaging (REA) maps were applied to score the RCMs. The REA factors were computed using a metric to evaluate the agreement between observed -or best estimated- PDFs, and that simulated with each RCM. The assessment of plausible regional trends associated to the return period, from the hazard maps of AMDR, showed a general rise, owing to an increase in the mean and the variability of extreme precipitation. These spatial-temporal distributions could be considered by Organization for the Development of the Senegal River (Organisation pour la mise en valeur du fleuve Senegal, OMVS), in such a way as to reach a better balance between mitigation and adaptation.
+SN  - 1027-5606
+SN  - 1607-7938
+PY  - 2011
+VL  - 15
+IS  - 11
+SP  - 3605
+EP  - 3615
+DO  - 10.5194/hess-15-3605-2011
+AN  - WOS:000298135500022
+ER  -
+
+TY  - JOUR
+AU  - Erzini, K
+AU  - Inejih, CAO
+AU  - Stobberup, KA
+TI  - An application of two techniques for the analysis of short, multivariate non-stationary time-series of Mauritanian trawl survey data
+T2  - ICES JOURNAL OF MARINE SCIENCE
+CP  - Symposium on Quantitative Ecosystem Indicators for Fisheries Management
+AB  - Min/max autocorrelation factor analysis (MAFA) and dynamic factor analysis (DFA) are complementary techniques for analysing short (> 15-25 y), non-stationary, multivariate data sets. We illustrate the two techniques using catch rate (cpue) time-series (1982-2001) for 17 species caught during trawl surveys off Mauritania, with the NAO index, an upwelling index, sea surface temperature, and an index of fishing effort as explanatory variables. Both techniques gave coherent results, the most important common trend being a decrease in cpue during the latter half of the time-series, and the next important being an increase during the first half. A DFA model with SST and UPW as explanatory variables and two common trends gave good fits to most of the cpue time-series. (c) 2004 International Council for the Exploration of the Sea. Published by Elsevier Ltd. All rights reserved.
+SN  - 1054-3139
+SN  - 1095-9289
+DA  - MAY
+PY  - 2005
+VL  - 62
+IS  - 3
+SP  - 353
+EP  - 359
+DO  - 10.1016/j.icesjms.2004.12.009
+AN  - WOS:000228705900008
+ER  -
+
+TY  - JOUR
+AU  - Herraiz, IG
+AU  - Fariña, AC
+AU  - Freire, J
+AU  - de la Torre, JRC
+TI  - Exploring long-term variability of Nephrops norvegicus landing per unit effort (LPUE) off North Galicia (NW Spain)
+T2  - FISHERIES RESEARCH
+AB  - Landings of Nephrops norvegicus from North Galicia (Northwest Spain) have decreased by 80% from 1975 to 2001. Variability in the landings per unit effort (LPUE) of this stock was investigated by using time series approach. The LPUE time series (1975-2001) exhibited a seasonal pattern. The seasonal decomposition of the LPUE showed a declining in the trend-cycle component from 1987 onwards.
+   Univariate and dynamic regression ARMA models were fitted to the LPUE time series. Population (proportion of males, proportion of ovigerous females and recruits) and environmental variables (temperature, salinity, nitrates and chlorophyll at 70 m depth, upwelling and sea surface temperature) were tested at different lags as explanatory variables. The proportion of males 4 years ago was the key factor explaining LPUE fluctuations. (C) 2015 Elsevier B.V. All rights reserved.
+SN  - 0165-7836
+SN  - 1872-6763
+DA  - MAY
+PY  - 2015
+VL  - 165
+SP  - 121
+EP  - 126
+DO  - 10.1016/j.fishres.2014.12.020
+AN  - WOS:000352748800015
+ER  -
+
+TY  - JOUR
+AU  - Saitoh, T
+AU  - Bjornstad, ON
+AU  - Stenseth, NC
+TI  - Density dependence in voles and mice: A comparative study
+T2  - ECOLOGY
+AB  - The presence of direct and delayed density dependence in populations of three sympatric rodent species (Clethrionomys rufocanus, Apodemus speciosus, and A. argenteus) in Hokkaido, Japan, was evaluated using triannual census data (spring, summer, and fall) spanning 30 years (1963-1992) on 79 populations for each species. The average abundance and population variability (the s-index) generally increased from spring to fall in C. rufocanus but were typically highest in summer for the Apodemus populations. Based on a comprehensive and comparative review of the population and community biology of the species we made four explicit predictions about the pattern of density dependence: (1) the three species were expected to exhibit socially induced direct density dependence, but 12) this was expected to be weaker in the Apodemus species than C. rufocanus; (3) delayed density dependence caused by predation was only expected in C. rufocanus; thus (4) time series of C. rufocanus were expected to reflect a second-order dynamic process, and those of the Apodemus species were expected to reflect a first-order process. Dennis and Taper's method based on the Gompertz model was used to test for direct and delayed density dependence and thereby to test the predictions. Direct density dependence was detected in most series (81.0-97.5%) for all three seasons and for all three species. A significant proportion of the time series of C. rufocanus (11.8-18.5%) exhibited negative delayed density dependence, whereas detection rates in the two Apodemus species did not differ from that expected by chance alone. Autoregressive analyses corroborated this: a second-order process was commonly found to be the appropriate model for the time series of C, rufocanus, whereas a first-order process was preferred for most time series of the Apodemus species. The high incidence of direct density dependence in all three species and the contrasting results on delayed density dependence between C. rufocanus and the Apodemus species are discussed with reference to social and trophic interactions. Territoriality, delayed maturation, and reduced pregnancy rates are probable causes for the high incidence of direct density dependence in all species. The more unpredictable variability in Apodemus food resource is argued to have a potential to disrupt social regulation and thus to lower the incidence of direct density dependence. A candidate mechanism for the incidence of delayed density dependence is differential vulnerability to predation: the demography of C. rufocanus is much more affected by predators than Apodemus.
+SN  - 0012-9658
+DA  - MAR
+PY  - 1999
+VL  - 80
+IS  - 2
+SP  - 638
+EP  - 650
+DO  - 10.1890/0012-9658(1999)080[0638:DDIVAM]2.0.CO;2
+AN  - WOS:000079036500026
+ER  -
+
+TY  - JOUR
+AU  - González-Pola, C
+AU  - Mills, KE
+AU  - Beszczynska-Möller, A
+AU  - Bresnan, E
+AU  - Birchenough, SNR
+TI  - Decadal (2010-2019) variability in the marine ecosystems of the North Atlantic
+T2  - ICES JOURNAL OF MARINE SCIENCE
+AB  - The "Symposium on Decadal Variability of the North Atlantic and its Marine Ecosystems: 2010-2019" took place in Bergen, Norway, from 20 to 22 May 2022. This event, hosted by the Institute of Marine Research, was jointly sponsored by ICES and NAFO and constitutes the fourth in a series of these symposia that started in 1991. The first symposium's aim was to review the hydrobiological variability in the decade of the 1980s, addressing the physical environment, plankton, invertebrates, and fish. Subsequent symposia maintained the classical structure, whilst a new theme session covering social sciences was added to the programme in the 2022 edition. Studies of climate impacts on marine ecosystems and living marine resources, including trends and regime shifts, emerged from increasingly longer ecosystem time series across the North Atlantic and subarctic regions. This symposium collection presents key findings discussed during the symposium. Whilst some progress has been made in advancing our ability to understand new trends and patterns of climate change and variability across physical, plankton, and fish communities, more work is needed to integrate these physical-ecological processes and scales with social science.
+SN  - 1054-3139
+SN  - 1095-9289
+DA  - APR 25
+PY  - 2024
+VL  - 81
+IS  - 3
+SP  - 505
+EP  - 511
+DO  - 10.1093/icesjms/fsae029
+C6  - MAR 2024
+AN  - WOS:001180713200001
+ER  -
+
+TY  - JOUR
+AU  - Pollet-Calderini, C
+AU  - Kirby, R
+AU  - Castant, J
+AU  - Leroy, M
+AU  - Robert, D
+AU  - Beaugrand, G
+TI  - Climate-induced shifts in cod spawning phenology across the North Atlantic
+T2  - SCIENTIFIC REPORTS
+AB  - Spawning underpins fish stock regeneration. Here, we investigate climate effects on spawning phenology in Atlantic cod (Gadus morhua), a severely exploited species whose stocks are now also affected by climate change. For the first time, we model daily cod egg occurrences as a spawning proxy across the North Atlantic. With a concordance of 84% between our model and basin-scale observations, our results predict different climate change outcomes for western (eastern Newfoundland) and eastern (North Sea) stocks. In eastern Newfoundland where cod is at the centre of its thermal niche, a phenological shift in spawning was observed. In the warmer North Sea, such a phenological adjustment did not occur, leading to a substantial reduction in spawning. Our model explains fluctuations in the North Sea cod stock better than those in the Eastern Newfoundland stock, where unaccounted anthropogenic (overfishing) and environmental (trophodynamics) factors may have influenced cod abundance over the considered time series. Our results provide an improved understanding of how future climate change and other drivers interact in driving stock dynamics.
+SN  - 2045-2322
+DA  - MAR 18
+PY  - 2026
+VL  - 16
+IS  - 1
+C7  - 13982
+DO  - 10.1038/s41598-026-44116-0
+C6  - MAR 2026
+AN  - WOS:001754857400015
+ER  -
+
+TY  - JOUR
+AU  - Glaser, SM
+AU  - Ye, H
+AU  - Maunder, M
+AU  - MacCall, A
+AU  - Fogarty, M
+AU  - Sugihara, G
+TI  - Detecting and forecasting complex nonlinear dynamics in spatially structured catch-per-unit-effort time series for North Pacific albacore (Thunnus alalunga)
+T2  - CANADIAN JOURNAL OF FISHERIES AND AQUATIC SCIENCES
+AB  - The presence of complex, nonlinear dynamics in fish populations, and uncertainty in the structure (functional form) of those dynamics, pose challenges to the accuracy of forecasts produced by traditional stock assessment models. We describe two nonlinear forecasting models that test for the hallmarks of complex behavior, avoid problems of structural uncertainty, and produce good forecasts of catch-per-unit-effort (CPUE) time series in both standardized and nominal (unprocessed) form. We analyze a spatially extensive, 40-year-long data set of annual CPUE time series of North Pacific albacore (Thunnus alalunga) from 1 degrees x 1 degrees cells from the eastern North Pacific Ocean. The use of spatially structured data in compositing techniques improves out-of-sample forecasts of CPUE and overcomes difficulties commonly encountered when using short, incomplete time series. These CPUE series display low-dimensional, nonlinear structure and significant predictability. Such characteristics have important implications for industry efficiency in terms of future planning and can inform formal stock assessments used for the management of fisheries.
+SN  - 0706-652X
+DA  - MAR
+PY  - 2011
+VL  - 68
+IS  - 3
+SP  - 400
+EP  - 412
+DO  - 10.1139/F10-160
+AN  - WOS:000287978500003
+ER  -
+
+TY  - JOUR
+AU  - Shimizu, K
+AU  - Saito, H
+AU  - Nishizono, T
+AU  - Yamada, Y
+TI  - Assessing post-harvest forest recovery using Landsat time series in temperate planted and natural forests
+T2  - ECOLOGICAL INDICATORS
+AB  - Monitoring forest recovery has important implications for effective forest management. Although Landsat time series data has the potential to characterize forest recovery, the applicability for monitoring recovery conditions in both planted and natural forests across regions remains unexplored. In this study, we evaluated post-harvest spectral and structural recovery metrics derived from Landsat time series using airborne LiDAR data in different regions of temperate planted and natural forests in Japan. We used the Normalized Burn Ratio (NBR) from Landsat time series data to calculate Years to Recovery (Y2R) metrics as indicators of spectral recovery and to identify forest conditions that meet the thresholds of 5 m canopy height and 30 % canopy cover. To assess structural recovery, machine learning models using extreme gradient boosting (XGBoost) regression were developed to predict canopy height and time-series growth in coniferous planted forests. The spectral recovery assessment demonstrated that Y2R threshold based on 100 % (Y2R100%) can be used as an indicator of forest recovery across regions and post-harvest forest types (i.e., coniferous/broadleaved) across Japan. The tree height predicted by the XGBoost models had R2 and RMSE of 0.69-0.82 and 2.07-2.58 m, respectively. The predicted tree height growth showed statistical equivalence with the dominant height from the middle site index in the yield tables for the main planted species at ages 15-20 years. The rate of forest recovery from the Y2R100% and growth prediction from XGBoost models highlighted areas of replantation failure or locations that had not recovered in natural forests. This study shows the potential combination of spectral and structural recovery for monitoring post-harvest forest recovery.
+SN  - 1470-160X
+SN  - 1872-7034
+DA  - NOV
+PY  - 2025
+VL  - 180
+C7  - 114320
+DO  - 10.1016/j.ecolind.2025.114320
+C6  - OCT 2025
+AN  - WOS:001606641600003
+ER  -
+
+TY  - JOUR
+AU  - Man, L
+AU  - Barbosa, RV
+AU  - Reshitnyk, LY
+AU  - Gendall, L
+AU  - Wachmann, A
+AU  - Dedeluk, N
+AU  - Kim, U
+AU  - Neufeld, CJ
+AU  - Costa, M
+TI  - Canopy-forming kelp forests persist in the dynamic subregion of the Broughton Archipelago, British Columbia, Canada
+T2  - FRONTIERS IN MARINE SCIENCE
+AB  - Canopy-forming kelp forests act as foundation species that provide a wide range of ecosystem services along temperate coastlines. With climate change, these ecosystems are experiencing changing environmental and biotic conditions; however, the kelp distribution and drivers of change in British Columbia remain largely unexplored. This research aimed to use satellite imagery and environmental data to investigate the spatiotemporal persistence and resilience of kelp forests in a dynamic subregion of cool ocean temperatures and high kelp abundance in the Broughton Archipelago, British Columbia. The specific objectives were to identify: 1) long-term (1984 to 2023) and short-term (2016 to 2023) kelp responses to environmental changes; and 2) spatial patterns of kelp persistence. The long-term time series was divided into three climate periods: 1984 to 1998, 1999 to 2014, and 2014 to 2023. The first transition between these periods represented a shift into cooler regional sea-surface temperatures and a negative Pacific Decadal Oscillation in 1999. The second transition represented a change into warmer temperatures (with more marine heatwaves and El Ni & ntilde;o conditions) after 2014. In the long-term time series (1984 to 2023), which covered a site with Macrocystis pyrifera beds, kelp area increased slightly after the start of the second climate period in 1999. For the short-term time series (2016 to 2023), which focused on eight sites with Nereocystis luetkeana beds, most sites either did not change significantly or expanded in kelp area. This suggests that kelp areas remained persistent across these periods despite showing interannual variability. Thus, the dynamic subregion of the Broughton Archipelago may be a climate refuge for kelps, likely due to cool water temperatures that remain below both species' upper thermal limits. Spatially, on a bed level, both species were more persistent in the center of the kelp beds, but across the subregion, Macrocystis had more persistent areas than Nereocystis, suggesting life history and/or other factors may be impacting these kelp beds differently. These findings demonstrate the spatiotemporal persistence of kelp forests in the dynamic subregion of the Broughton Archipelago, informing the management of kelp forest ecosystems by First Nations and local communities.
+SN  - 2296-7745
+DA  - MAR 13
+PY  - 2025
+VL  - 12
+C7  - 1537498
+DO  - 10.3389/fmars.2025.1537498
+AN  - WOS:001457590400001
+ER  -
+
+TY  - JOUR
+AU  - Fischer, P
+AU  - Brix, H
+AU  - Bussmann, I
+AU  - Ködel, U
+AU  - Schwanitz, M
+AU  - Schütze, C
+AU  - Anselm, N
+AU  - Brand, M
+AU  - Jenniges, Y
+AU  - Kasten, S
+AU  - Kraberg, A
+AU  - Lienkämper, M
+AU  - Spotowitz, L
+AU  - Weber, U
+AU  - Wiltshire, K
+AU  - Dietrich, P
+TI  - Effects of marine heat waves and cold spells on a polar shallow water ecosystem
+T2  - SCIENTIFIC REPORTS
+AB  - Global warming affects the Earth system in complex ways, often preventing a functional understanding of the underlying processes. Disentangling these processes between abiotic drivers and single species or entire communities is, however, essential for an in-depth understanding of the impacts of climate change on the ecosystem. Using a high-resolution time series on heat waves and cold spells in an Arctic fjord system, we demonstrate that AI-supported digital data processing, which is based on state-of-the-art observatory technology, has the potential to provide new insights into the effects of abiotic factors on biotic communities, which would not be possible with traditional expedition-based sampling methods. Furthermore, our study shows that short-term, event-driven anomalies in key ocean variables not only alter a system's hydrography but also have the potential to impact the entire community across the trophic chain from benthos and zooplankton to fish. We found a significant positive correlation between hydrographic temperature anomalies and biota abundance, with high biota abundances linked to 'Atlantic' phases with frequent heat waves and low biota abundances correlated with 'Arctic' phases dominated by cold spells. The study also revealed that hydrographic anomalies can not only influence overall biota abundance in an area but also trigger complex shifts in species composition. This leads to fluctuating interannual abundance peaks in specific biotic groups, such as jellyfish, fish, or chaetognaths, depending on trigger factors that are not yet fully understood.
+SN  - 2045-2322
+DA  - JUN 20
+PY  - 2025
+VL  - 15
+IS  - 1
+C7  - 20168
+DO  - 10.1038/s41598-025-05621-w
+AN  - WOS:001512788100025
+ER  -
+
+TY  - JOUR
+AU  - Osborne, MJ
+AU  - Davenport, SR
+AU  - Hoagstrom, CW
+AU  - Turner, TF
+TI  - Genetic effective size, Ne, tracks density in a small freshwater cyprinid, Pecos bluntnose shiner (Notropis simus pecosensis)
+T2  - MOLECULAR ECOLOGY
+AB  - Genetic monitoring tracks changes in measures of diversity including allelic richness, heterozygosity and genetic effective size over time, and has emerged as an important tool for understanding evolutionary consequences of population management. One proposed application of genetic monitoring has been to estimate abundance and its trajectory through time. Here, genetic monitoring was conducted across five consecutive year for the Pecos bluntnose shiner, a federally threatened minnow. Temporal changes in allele frequencies at seven microsatellite DNA loci were used to estimate variance effective size (N-eV) across adjacent years in the time series. Likewise, effective size was computed using the linkage disequilibrium method (N-eD) for each sample. Estimates of N-e were then compared to estimates of adult fish density obtained from traditional demographic monitoring. For Pecos bluntnose shiner, density (catch-per-unit-effort), N-eV and N-eD were positively associated across this time series. Results for Pecos bluntnose shiner were compared to a related and ecologically similar species, the Rio Grande silvery minnow. In this species, density and N-eV were negatively associated, which suggested decoupling of abundance and effective size trajectories. Conversely, density and N-eD were positively associated. For Rio Grande silvery minnow, discrepancies among estimates of N-e and their relationships with adult fish density could be related to effects of high variance in reproductive success in the wild and/or effects of supplementation of the wild population with captive-bred and reared fish. The efficacy of N-e as a predictor of density and abundance may depend on intrinsic population dynamics of the species and how these dynamics are influenced by the landscape features, management protocols and other factors.
+SN  - 0962-1083
+SN  - 1365-294X
+DA  - JUL
+PY  - 2010
+VL  - 19
+IS  - 14
+SP  - 2832
+EP  - 2844
+DO  - 10.1111/j.1365-294X.2010.04695.x
+AN  - WOS:000279751000002
+ER  -
+
+TY  - JOUR
+AU  - Yuan, Y
+AU  - Xia, ZJ
+AU  - Li, MZ
+AU  - Chang, T
+AU  - Shang, KY
+AU  - He, DK
+AU  - Lin, PC
+AU  - Gao, X
+TI  - Extinction debt in lake fish due to river-lake disconnection
+T2  - ECOLOGICAL INDICATORS
+AB  - After habitat loss and fragmentation, some species may persist for some period, but eventually become extinct, resulting in the so-called extinction debt. Understanding extinction debt can help depict biodiversity change processes and prevent underestimating biodiversity loss in conservation practices. River-lake disconnection has reduced fish diversity in lakes within the middle and lower Yangtze River basin, and may cause extinction debt as well after river-lake disconnection, which has not been noticed so far. This study collected fish species occurrence data from the 1950s to 2020, along with data on lake area and disconnection time. Taxonomic (TD), functional (FD), and phylogenetic (PD) diversity indices were calculated and analyzed to test the hypothesis using three methods: time series analysis, equilibrium methods, and past habitat analysis. The results showed that extinction debt was detected in TD across all methods, whereas FD did not exhibit extinction debt and PD demonstrated the presence of extinction debt by time series analysis. Furthermore, the decline in TD correlated with both lake area and disconnection time, while PD decline was associated with disconnection time. These results revealed extinction debt in the taxonomic and phylogenetic diversity of fish due to river-lake disconnection, but not in functional traits. Our findings provided empirical evidence of extinction debt and emphasize the importance of considering long-term species loss when assessing the cumulative impacts of habitat loss and fragmentation.
+SN  - 1470-160X
+SN  - 1872-7034
+DA  - DEC
+PY  - 2024
+VL  - 169
+C7  - 112912
+DO  - 10.1016/j.ecolind.2024.112912
+C6  - DEC 2024
+AN  - WOS:001372468100001
+ER  -
+
+TY  - JOUR
+AU  - Xiao, H
+AU  - Liu, K
+AU  - Deng, LG
+AU  - Yang, WR
+AU  - Sun, LJ
+AU  - Yi, A
+AU  - Zhang, YH
+AU  - Qian, X
+AU  - Liu, T
+AU  - Li, HM
+TI  - Insights into the prediction and driving factors of perfluorinated and polyfluoroalkyl substances in sediments from Taihu Lake of China using machine learning models
+T2  - ENVIRONMENTAL POLLUTION
+AB  - The spatiotemporal changes and environmental driving factors governing the distribution of perfluorinated and polyfluoroalkyl substances (PFAS) in the sediment cores of shallow lakes remain inadequately understood. This study investigated the occurrence and predicted future trends of PFAS in sediment cores from a shallow lake in China, and revealed the key influencing factors using time-series prediction and interpretable machine learning (IML) models. A decreasing trend of PFAS with depth in the three representative areas was found, with long-chain PFAS, such as perfluorooctanoic acid (PFOA) and perfluorooctane sulfonate (PFOS), predominating. The RQ of the top (0-4 cm) sediment cores indicated that they were in at a moderate ecological risk. Time-series forecasts using the Attention-CL model predicted increasing PFOA and PFOS concentrations from 2023 to 2034, suggesting potential consequences of delays in effective policy implementation. Feature importance and Shapley analyses revealed the importance of pH, total organic carbon (TOC), and oxidation-reduction potential (ORP) for PFAS. Partial dependence plots and individual conditional expectation showed the threshold effect of pH on PFOA and perfluoroundecanoic acid (PFUdA) to be 6.5, the threshold effect of ORP to be 200 mV, and the threshold effect of electrical conductivity to be 300 mu S/cm. The threshold effect of TOC on PFOA was 3.0 mg/g, whereas that on PFUdA was 3.5 mg/g. In general, the IML model highlights the importance of environmental parameters, such as pH, ORP, and TOC, in shaping PFAS distribution. These findings elucidate the complex interactions between sediment characteristics and PFAS distribution, informing targeted monitoring and remediation efforts in a broader environmental science field.
+SN  - 0269-7491
+SN  - 1873-6424
+DA  - DEC 1
+PY  - 2025
+VL  - 386
+C7  - 127294
+DO  - 10.1016/j.envpol.2025.127294
+C6  - OCT 2025
+AN  - WOS:001606048100004
+ER  -
+
+TY  - JOUR
+AU  - Chang, HY
+AU  - McKown, K
+AU  - Chen, Y
+TI  - A long-term ichthyoplankton monitoring program suggests climate-induced environmental variabilities changed fish communities in the Hudson River estuary
+T2  - FRONTIERS IN MARINE SCIENCE
+AB  - Climate change is known to have significant impacts on coastal marine ecosystems. However, a good understanding of the exact impacts requires consistent long-term monitoring programs, which are not available for many coastal marine ecosystems. The Hudson River Estuary (HRE) provides critical habitats for many estuarine, freshwater, and diadromous species. The Longitudinal River Ichthyoplankton Survey and Water Quality Survey in the Hudson River Biological Monitoring Program provided a long-term time series (1974-2017) for examining the changes in salinity and other environmental variables and identifying the temporal variability of fish diversity. In this study, we examined the environmental data and found a 2-phase pattern in the salinity time series data with a change point of 1984. We calculated a Margalef index and a Simpson index to examine species richness and evenness for early and older life stages in the upper and lower HRE, and explored the potential effects of rising sea level and salinity on fish biodiversity. This study reveals that sea level and salinity may play an important part in explaining increased species richness and evenness. The increased occurrence, establishment and range expansion of marine species as well as possible displacement of freshwater species may be associated with sea level-induced salinity change observed in the HRE. This study highlights a need for a long-term consistent monitoring program and a better understanding of climate change effects on the biota in coastal estuary ecosystems such as the HRE in order to enhance management, conservation, and restoration plans.
+SN  - 2296-7745
+DA  - JAN 4
+PY  - 2023
+VL  - 9
+C7  - 1077997
+DO  - 10.3389/fmars.2022.1077997
+AN  - WOS:000916139300001
+ER  -
+
+TY  - JOUR
+AU  - Tillotson, MD
+AU  - Quinn, TP
+TI  - Beyond Correlation in the Detection of Climate Change Impacts: Testing a Mechanistic Hypothesis for Climatic Influence on Sockeye Salmon (Oncorhynchus nerka) Productivity
+T2  - PLOS ONE
+AB  - Detecting the biological impacts of climate change is a current focus of ecological research and has important applications in conservation and resource management. Owing to a lack of suitable control systems, measuring correlations between time series of biological attributes and hypothesized environmental covariates is a common method for detecting such impacts. These correlative approaches are particularly common in studies of exploited fish species because rich biological time-series data are often available. However, the utility of species-environment relationships for identifying or predicting biological responses to climate change has been questioned because strong correlations often deteriorate as new data are collected. Specifically stating and critically evaluating the mechanistic relationship (s) linking an environmental driver to a biological response may help to address this problem. Using nearly 60 years of data on sockeye salmon from the Kvichak River, Alaska we tested a mechanistic hypothesis linking water temperatures experienced during freshwater rearing to population productivity by modeling a series of intermediate, deterministic relationships and evaluating temporal trends in biological and environmental time-series. We found that warming waters during freshwater rearing have profoundly altered patterns of growth and life history in this population complex yet there has been no significant correlation between water temperature and metrics of productivity commonly used in fisheries management. These findings demonstrate that pairing correlative approaches with careful consideration of the mechanistic links between populations and their environments can help to both avoid spurious correlations and identify biologically important, but not statistically significant relationships, and ultimately producing more robust conclusions about the biological impacts of climate change.
+SN  - 1932-6203
+DA  - APR 28
+PY  - 2016
+VL  - 11
+IS  - 4
+C7  - e0154356
+DO  - 10.1371/journal.pone.0154356
+AN  - WOS:000375211700073
+ER  -
+
+TY  - JOUR
+AU  - Angeler, DG
+AU  - Trigal, C
+AU  - Drakare, S
+AU  - Johnson, RK
+AU  - Goedkoop, W
+TI  - Identifying resilience mechanisms to recurrent ecosystem perturbations
+T2  - OECOLOGIA
+AB  - The complex nature of ecological systems limits the unambiguous determination of mechanisms that drive resilience to natural disturbance or anthropogenic stress. Using eight-year time series data from boreal lakes with and without bloom formation of an invasive alga (Gonyostomum semen, Raphidophyceae), we studied resilience of phytoplankton communities in relation to recurring bloom impacts. We first characterized phytoplankton community dynamics in both lake types using univariate metrics of community structure (evenness, species richness, biovolume and Simpson diversity). All metrics, except species richness, were substantially altered and showed an inherent stronger variability in bloom lakes relative to reference lakes. We assessed resilience mechanisms using a multivariate time series modelling technique. The models captured clear successional dynamics of the phytoplankton communities in all lakes, whereby different groups of species were substituted sequentially over the ice-free period. The models also identified that G. semen impacts in bloom lakes were only manifested within a single species group, not across species groups, highlighting the rapid renewal of the phytoplankton communities upon bloom collapse. These results provide empirical support of the cross-scale resilience model. Cross-scale resilience could provide an explanation for the paradox that similar species richnesses are seen in bloom-forming lakes and reference lakes despite the clear difference between the community features of the two different sets of lakes investigated.
+SN  - 0029-8549
+SN  - 1432-1939
+DA  - SEP
+PY  - 2010
+VL  - 164
+IS  - 1
+SP  - 231
+EP  - 241
+DO  - 10.1007/s00442-010-1640-2
+AN  - WOS:000280962200022
+ER  -
+
+TY  - JOUR
+AU  - Kyparissis, A
+AU  - Levizou, E
+TI  - Climatic Drivers of the Complex Phenology of the Mediterranean Semi-Deciduous Shrub Phlomis fruticosa Based on Satellite-Derived EVI
+T2  - PLANTS-BASEL
+AB  - A 21-year Enhanced Vegetation Index (EVI) time-series produced from MODIS satellite images was used to study the complex phenological cycle of the drought semi-deciduous shrub Phlomis fruticosa and additionally to identify and compare phenological events between two Mediterranean sites with different microclimates. In the more xeric Araxos site, spring leaf fall starts earlier, autumn revival occurs later, and the dry period is longer, compared with the more favorable Louros site. Accordingly, the control of climatic factors on phenological events was examined and found that the Araxos site is mostly influenced by rain related events while Louros site by both rain and temperature. Spring phenological events showed significant shifts at a rate of 1-4.9 days per year in Araxos, which were positively related to trends for decreasing spring precipitation and increasing summer temperature. Furthermore, the climatic control on the inter-annual EVI fluctuation was examined through multiple linear regression and machine learning approaches. For both sites, temperature during the previous 2-3 months and rain days of the previous 3 months were identified as the main drivers of the EVI profile. Our results emphasize the importance of focusing on a single species and small-spatial-scale information in connecting vegetation responses to the climate crisis.
+SN  - 2223-7747
+DA  - MAR
+PY  - 2022
+VL  - 11
+IS  - 5
+C7  - 584
+DO  - 10.3390/plants11050584
+AN  - WOS:000768219400001
+ER  -
+
+TY  - JOUR
+AU  - Boyd, PW
+AU  - Trull, TW
+TI  - Understanding the export of biogenic particles in oceanic waters: Is there consensus?
+T2  - PROGRESS IN OCEANOGRAPHY
+AB  - We examine progress towards a global view of oceanic export of particulate organic carbon (POC) and other nutrient elements (P, N, Si) from the surface (upper 100 m), through the subsurface, to the deep sea (>1000 m), focusing on syntheses published since 1999 and on the Joint Global Ocean Flux Study. Food-web structure is important, and surface and subsurface processes contribute similarly to determine the fraction of net primary production (NPP) reaching the deep sea. NPP by large cells generally favours high surface export of POC. Preferential remineralization of P and N (versus C) with depth is common, as is regional variation in subsurface POC flux attenuation.
+   The role of mineral fluxes is complex. Annual mean fluxes of POC and minerals are correlated in global deep sediment trap records, but causality and the relative importance of different minerals depends on the assumptions made, Time-series observations at single sites can oppose the geographic trends, and their large seasonal variability in the contribution of POC to total flux is at odds with mechanistic models for POC transport by minerals. Despite generally positive correlations between biogenic carbonate and POC fluxes, the overall role of carbonate export is to decrease the transfer of carbon dioxide from the atmosphere to the ocean. Both autotrophs and heterotrophs produce minerals, and progress in separating these contributions is required for the deconvolution of mineral ballast and food-web effects.
+   Many recent models suggest global surface POC export of similar to 10 GTC/yr, despite widely varying biological complexity. This limits the usefulness of their prediction of ecosystem and carbon cycle responses to global change. Progress requires better observations for model validation, and more efforts to relate the models to the observed complexity, rather than to overly simplified global syntheses. We advocate more time-series stations targeting under-studied biogeochemical regions, development of automated in situ tools for study of the subsurface ocean, and increased emphasis on combining ecological and biogeochemical methods. (C) 2006 Elsevier Ltd. All rights reserved.
+SN  - 0079-6611
+SN  - 1873-4472
+PY  - 2007
+VL  - 72
+IS  - 4
+SP  - 276
+EP  - 312
+DO  - 10.1016/j.pocean.2006.10.007
+AN  - WOS:000245798400001
+ER  -
+
+TY  - JOUR
+AU  - Foroumandi, E
+AU  - Nourani, V
+AU  - Dabrowska, D
+AU  - Kantoush, SA
+TI  - Linking Spatial-Temporal Changes of Vegetation Cover with Hydroclimatological Variables in Terrestrial Environments with a Focus on the Lake Urmia Basin
+T2  - LAND
+AB  - Investigation of vegetation cover is crucial to the study of terrestrial ecological environments as it has a close relationship with hydroclimatological variables and plays a dominant role in preserving the characteristics of a region. In Iran, the current study selected the watersheds of two rivers, Nazloo-Chay and Aji-Chay, to systematically investigate the implications and causes of vegetation cover variations under changing environments. These two rivers are among the essential inflows to Lake Urmia, the second largest saline lake on Earth, and are located on the west and east sides of the lake, respectively. There has been a debate between the people living in the rivers' watersheds about who is responsible for the decline in the level of Lake Urmia-does responsibility fall with those on the east side or with those on the west side? In this study, the normalized difference vegetation index (NDVI) was used as a remotely sensed index to study spatial-temporal pattern changes in vegetation. Moreover, the temperature, precipitation, and streamflow time series were gathered using ground measurements to explore the causes and implications of changing vegetation cover. Discrete wavelet transform was applied to separate the different components of the time series. The Mann-Kendall (MK) test was applied to the time series on monthly, seasonal, and annual time scales. The connections and relationship between the NDVI time series and temperature, precipitation, and streamflow time series and any underlying causes were investigated using wavelet transform coherence (WTC). Land use maps were generated for different years using a support vector machine (SVM) in the final stage. The results indicated that the most dominant monthly, seasonal, and annual hydrological periodicities across the watersheds are 8 months, 6 months, and 2 years, respectively. The increasing vegetation cover during stable hydro-environmental periods revealed unusual conditions in the Aji-Chay watershed and reflected agricultural expansion. The WTC graphs indicated sudden changes in mutual periodicities and time-lags with different patterns between variables, which indicates the increasing anthropogenic activities in both watersheds. However, this was more dominant in the Aji-Chay watershed. The land use maps and investigation of the averaged NDVI maps also denoted that the areas of cultivated land have increased by 30% in the Aji-Chay watershed, and crop types have been changed to the crops with a higher demand for water in both watersheds.
+SN  - 2073-445X
+DA  - JAN
+PY  - 2022
+VL  - 11
+IS  - 1
+C7  - 115
+DO  - 10.3390/land11010115
+AN  - WOS:000756483800001
+ER  -
+
+TY  - JOUR
+AU  - Chen, CS
+TI  - Abundance trends of two neon flying squid (Ommastrephes bartramii) stocks in the North Pacific
+T2  - ICES JOURNAL OF MARINE SCIENCE
+CP  - Symposium of the Cephalopod-International-Advisory-Council
+AB  - Two stocks of neon flying squid (Ommastrephes bartramii) have been identified in the North Pacific, with differing life- history traits and geographic distributions, one in the Northeast Pacific and the other in the Northwest Pacific, each with seasonal cohorts. Both stocks are targeted by commercial fishing fleets from China, Japan, and Taiwan. The variability in abundance for each stock has been studied independently, but a comparable analysis between the two stocks is lacking. The abundance trends for the two stocks were examined using catch data from the Taiwanese squid fishery between 1986 and 2006. A time- series of monthly catch per unit effort and three explanatory variables, sea surface temperature in the presumed hatching grounds, the Southern Oscillation Index, and the number of vessels, were analysed using dynamic factor analysis to quantify squid abundance. The optimal model contained one common trend and all three explanatory variables. The Northwest Pacific and Northeast Pacific stocks exhibited opposing trends in abundance, and the results suggest that large- scale environmental factors, rather than regional factors, are more critical in influencing the abundance of oceanic squid species.
+SN  - 1054-3139
+SN  - 1095-9289
+DA  - OCT
+PY  - 2010
+VL  - 67
+IS  - 7
+SP  - 1336
+EP  - 1345
+DO  - 10.1093/icesjms/fsq063
+AN  - WOS:000281719300004
+ER  -
+
+TY  - JOUR
+AU  - Shannon, LJ
+AU  - Christensen, V
+AU  - Walters, CJ
+TI  - Modelling stock dynamics in the southern Benguela ecosystem for the period 1978-2002
+T2  - AFRICAN JOURNAL OF MARINE SCIENCE
+CP  - Workshop on Ecosystem Approaches to Fisheries Management in the Southern Benguela
+AB  - An ecosystem model of the southern Benguela was fitted to available time-series data for the period 1978-2002, to explore how changes in target fish populations in this ecosystem can be attributed to feeding interaction terms and population control patterns, the impact of fishing, and environmental forcing. Fishing patterns were estimated to explain only 2-3% of the variability in the time-series, whereas an estimated productivity forcing pattern applied to phytoplankton explained 4-12% of the variance represented by the sum of squares. Model settings describing prey vulnerability to their predators could explain around 40% of the variability in the time-series. Modelled stock dynamics in the southern Benguela ecosystem more closely represent observed time-series when wasp-waist control by small pelagic fish is simulated. Overall, model simulations suggest that almost half the variance in the time-series can be explained based on a combination of fishing, vulnerability settings and productivity patterns. Variation in mortalities and prey preferences over time, as well as model fits in relation to available effort series, are discussed. The study advances a model with improved parameterization and credibility to assist with an ecosystem approach to South African fisheries management.
+SN  - 0257-7615
+PY  - 2004
+VL  - 26
+SP  - 179
+EP  - 196
+DO  - 10.2989/18142320409504056
+AN  - WOS:000224636100012
+ER  -
+
+TY  - JOUR
+AU  - Gartland, J
+AU  - Gaichas, SK
+AU  - Latour, RJ
+TI  - Spatiotemporal patterns in the ecological community of the nearshore Mid-Atlantic Bight
+T2  - MARINE ECOLOGY PROGRESS SERIES
+AB  - Recognition of the need for a more holistic, ecosystem approach to the assessment and management of living marine resources has renewed interest in quantitative community ecology and fueled efforts to develop ecosystem metrics to gain insight into system status. This investigation utilized 12 years (2008 to 2019) of fisheries-independent bottom trawl survey data to quantify and synthesize the spatiotemporal patterns of species assemblages inhabiting the nearshore Mid-Atlantic Bight (MAB). Assemblages were delineated by ecomorphotype (EMT), and all species collected by the survey were allocated among 9 EMTs: demersal fishes; pelagic fishes; flatfishes; skates; rays; dogfishes; other sharks; cephalopods; and benthic arthropods. Annual time series and seasonal spatial distributions of relative aggregate biomass were quantified for each EMT using delta-generalized additive models. Dynamic factor analysis (DFA) revealed that the information content of the 9 annual time series was effectively summarized by 3 common trends, and DFA model fits to each EMT time series represented a new suite of ecosystem indicators for this system. Mean sea surface temperature during winter in the MAB was included in the selected DFA model, suggesting that winter environmental conditions influence the structure of this system at an annual scale. Principal component analysis uncovered a north-to-south gradient in the seasonal spatial distributions of these EMTs and identified a distinct area of elevated biomass for several assemblages along the south shore of Long Island, NY. Taken together, these results characterize the community structure of the nearshore MAB and yield requisite information to support ongoing ecosystem-scale assessment and management activities for this region.
+SN  - 0171-8630
+SN  - 1616-1599
+DA  - JAN 26
+PY  - 2023
+VL  - 704
+SP  - 15
+EP  - 33
+DO  - 10.3354/meps14235
+AN  - WOS:000946774700002
+ER  -
+
+TY  - CPAPER
+AU  - Devine, JA
+AU  - Haedrich, RL
+ED  - Orloov, AM
+ED  - Iwamoto, T
+TI  - Population trends and status of two exploited Northwest Atlantic grenadiers, Coryphaenoides rupestris and Macrourus berglax
+T2  - GRENADIERS OF THE WORLD OCEANS: BIOLOGY, STOCK ASSESSMENT, AND FISHERIES
+CP  - Symposium on Grenadiers of the World Oceans - Biology, Stock Assessment, and Fisheries held at the 136th Annual Meeting of the American-Fisheries-Society
+AB  - Roundnose grenadier Coryphaenoides rupestris and roughhead grenadier Macrourus berglax are well known slope species in the North Atlantic. Dramatic population declines in both species in Canadian waters of the Northwest Atlantic raised the question: was the decline a result of environmental changes or exploitation? Min-max autocorrelation factor analysis and dynamic factor analysis, two types of time series analysis, showed that a combination of factors acting on different temporal scales explained the trends in both species. Those in Macrourus were best explained by environmental factors operating on long time scales; those in Coryphaenoides were related to exploitation. Our results support the view that ail unregulated deep-ocean fishery, as experienced by Coryphaenoides, has serious consequences for species that are slow-growing, long-lived, and late-maturing.
+SN  - 0892-2284
+SN  - 978-1-934874-00-4
+PY  - 2008
+VL  - 63
+SP  - 463
+EP  - +
+AN  - WOS:000258525400026
+ER  -
+
+TY  - JOUR
+AU  - Gould, WR
+AU  - Ray, AM
+AU  - Bailey, LL
+AU  - Thoma, D
+AU  - Daley, R
+AU  - Legg, K
+TI  - Multistate occupancy modeling improves understanding of amphibian breeding dynamics in the Greater Yellowstone Area
+T2  - ECOLOGICAL APPLICATIONS
+AB  - Discerning the determinants of species occurrence across landscapes is fundamental to their conservation and management. In spatially and climatologically complex landscapes, explaining the dynamics of occurrence can lead to improved understanding of short- vs. long-term trends and offer novel insight on local vs. regional change. We examined the changes in occupancy for two species of anurans with different life histories over a decade using hundreds of wetland sites in Yellowstone and Grand Teton National Parks. To account for the joint dynamics of wetland drying and amphibian breeding, we adopted a multistate occupancy model as a means to investigate mechanistic relationships of observed occurrence patterns with climatological drivers of wetland hydrologic variability. This approach allowed us to decompose occupancy dynamics into habitat changes caused by wetland drying and amphibian breeding activity, conditional on available water and previous breeding state. Over our 10-yr time series, we observed considerable variability in climate drivers and the proportion of dry wetlands. Boreal chorus frogs (Pseudacris maculata) were more responsive to changes in wetland inundation status than Columbia spotted frogs (Rana luteiventris), as indicated by higher breeding colonization probabilities under favorable (wet) conditions. Both species had high probabilities of breeding persistence in permanently inundated wetlands with prior breeding. Despite the absence of multi-year drought in our time series, mechanistic relationships described here offer insights on how future climate variation may result in reduced and/or shifted occurrence patterns for pond-breeding anurans in the Greater Yellowstone Area. Further, our modeling approach may prove valuable in evaluating determinants of occurrence for other species that are dependent on wetlands or other dynamic habitats.
+SN  - 1051-0761
+SN  - 1939-5582
+DA  - JAN
+PY  - 2019
+VL  - 29
+IS  - 1
+C7  - e01825
+DO  - 10.1002/eap.1825
+AN  - WOS:000454685500003
+ER  -
+
+TY  - JOUR
+AU  - Sejr, MK
+AU  - Jensen, KT
+AU  - Rysgaard, S
+TI  - Macrozoobenthic community structure in a high-arctic East Greenland fjord
+T2  - POLAR BIOLOGY
+AB  - A macrozoobenthic community study was conducted in an East Greenlandic fjord (Young Sound, 74 degrees 18'N; 20 degrees 15'W) during the ice-free period from July to August in 1996. Grab samples as well as underwater photography were used for quantifying the macrozoobenthos at water depths between 20 and 85 m. Abundance decreased with depth from 2700 ind.(.)m(-2) at 20 m to 900 ind.(.)m(-2) at 85 m. At a time series station at 35 m, abundance increased from 700 ind.(.)m(-2) in mid-July to 1400 ind.(.)m(-2) in mid-August. Poly chaetes dominated in grab samples but bivalves constituted an important part of the benthic fauna, especially at the shallow part of the depth gradient. Photographs revealed high abundances of large epifaunal species, especially brittle stars. Diversity was generally high, with around 45 species per 201 individuals, as calculated by Hurlbert's rarefaction term. A gradual change in community structure with depth was observed, which could be related to variation in sediment composition and disturbance intensity.
+SN  - 0722-4060
+DA  - NOV
+PY  - 2000
+VL  - 23
+IS  - 11
+SP  - 792
+EP  - 801
+DO  - 10.1007/s003000000154
+AN  - WOS:000089927900008
+ER  -
+
+TY  - JOUR
+AU  - Lopes, RJ
+AU  - Pardal, MA
+AU  - Múrias, T
+AU  - Cabral, JA
+AU  - Marques, JC
+TI  - Influence of macroalgal mats on abundance and distribution of dunlin Calidris alpina in estuaries:: a long-term approach
+T2  - MARINE ECOLOGY PROGRESS SERIES
+AB  - Estuaries used by shorebirds during the non-breeding season face many types of human pressure, including eutrophication and consequent occurrence of macroalgal blooms. The impact of this phenomenon on the abundance of dunlin Calidris alpina in the Mondego estuary, Portugal, was explored using long-term, monthly time series, between 1993 and 2003. The data series included total macroalgal cover, macroinvertebrate biomass and dunlin abundance. We observed an increase in dunlin abundance during this period that matched the decrease in macroalgal cover, especially since the promotion of management actions in 1998. We suggest that this increase was related to the increase Of SOME of its main prey species, the polychaete Hediste diversicolor and the bivalve Scrobicularia plana. At smaller scales, no effect of macroalgae was observed on the proportion of dunlin that chose to feed in alternative habitats (salinas) during the low tide period. However, there was a small effect of the level of algal cover on the proportion of birds recorded on macroalgae at intermediate levels of coverage (around 25 % of total mudflat area).
+SN  - 0171-8630
+SN  - 1616-1599
+PY  - 2006
+VL  - 323
+SP  - 11
+EP  - 20
+DO  - 10.3354/meps323011
+AN  - WOS:000241921700002
+ER  -
+
+TY  - JOUR
+AU  - Clark, RA
+AU  - Frid, CLJ
+AU  - Batten, S
+TI  - A critical comparison of two long-term zooplankton time series from the central-west North Sea
+T2  - JOURNAL OF PLANKTON RESEARCH
+AB  - Long-term changes in relative and absolute zooplankton abundance and species composition mere compared between the Dove Marine Laboratory and Continuous Plankton Recorder (CPR) time series in the central-western North Sea. The two time series employ different sampling mechanisms, with the Dove series being obtained by net sampling at a fixed station off the Northumberland coast, while the CPR series utilizes a network of fixed towed routes. It was found that there was a significant correlation (r = 0.64, P < 0.001) between the relative year-to-year fluctuations of the two series and a significant agreement in the pattern of year-to-year variations in species composition of the dominant taxa (P = 0.01) over the majority of the time period. However, examination of absolute zooplankton abundances found large differences between the two time series. Differences in mesh size and in the sample processing methodologies were not wholly responsible for these. Model-derived catching efficiencies for the two sampling devices suggested that differences in absolute abundances may have been mainly due in same tara to a greater degree of active avoidance of the CPR sampling device by zooplankton, although it is likely that passive avoidance ar a result of hydrodynamic factors has a role.
+SN  - 0142-7873
+DA  - JAN
+PY  - 2001
+VL  - 23
+IS  - 1
+SP  - 27
+EP  - 39
+DO  - 10.1093/plankt/23.1.27
+AN  - WOS:000167155300004
+ER  -
+
+TY  - JOUR
+AU  - Castillo-Jordán, C
+AU  - Klaer, NL
+AU  - Tuck, GN
+AU  - Frusher, SD
+AU  - Cubillos, LA
+AU  - Tracey, SR
+AU  - Salinger, MJ
+TI  - Coincident recruitment patterns of Southern Hemisphere fishes
+T2  - CANADIAN JOURNAL OF FISHERIES AND AQUATIC SCIENCES
+AB  - Three dominant recruitment patterns were identified across 30 stocks from Australia, New Zealand, Chile, South Africa, and the Falkland Islands using data from 1980 to 2010. Cluster and dynamic factor analysis provided similar groupings. Stocks exhibited a detectable degree of synchrony among species, in particular the hakes and lings from Australia, New Zealand, Chile, and South Africa. We tested three climate indices, the Interdecadal Pacific Oscillation (IPO), Southern Annular Mode (SAM), and Southern Oscillation Index (SOI), to explore their relationship with fish stock recruitment patterns. The time series of IPO and SOI showed the strongest correlation with New Zealand hoki (blue grenadier, Macruronus novaezelandiae) and Australian jackass morwong (Nemadactylus macropterus) (r = 0.50 and r = -0.50), and SAM was positively related to Australian Macquarie Island Patagonian toothfish (Dissostichus eleginoides) (r = 0.49). Potential linkages in recruitment patterns at sub-basin, basin, and multibasin scales and regional and global climate indices do account for some of the variation, playing an important role for several key Southern Hemisphere species.
+SN  - 0706-652X
+SN  - 1205-7533
+DA  - FEB
+PY  - 2016
+VL  - 73
+IS  - 2
+SP  - 270
+EP  - 278
+DO  - 10.1139/cjfas-2015-0069
+AN  - WOS:000375420000012
+ER  -
+
+TY  - JOUR
+AU  - Stenseth, NC
+AU  - Bjornstad, ON
+AU  - Saitoh, T
+TI  - A gradient from stable to cyclic populations of Clethrionomys rufocanus in Hokkaido, Japan
+T2  - PROCEEDINGS OF THE ROYAL SOCIETY B-BIOLOGICAL SCIENCES
+AB  - A total of 31 years of abundance data from 90 populations of the grey-sided vole (Clethrionomys rufocanus) in northern Hokkaido (Japan) were analysed with respect to population dynamic characteristics. Both non-periodic and multi-annually periodic fluctuations occur among the studied populations. The length of the period varies from 2 to 5 years. The dynamics appear approximately linear on a logarithmic scale, and a log-linear stochastic difference model with one time-lag is found to recreate the periodograms of the time series. The deterministic (log-linear) component of these models determines the periodicity while stochasticity sustains the cycles. The dynamics of the Hokkaidian vole populations are found to vary clinally from the western coast eastwards and towards the interior of the study area. This gradient corresponds superficially to the latitudinal gradient seen in microtine populations in Fennoscandia. However, under close scrutiny, these gradients differ greatly: the Hokkaidian gradient is caused by a dine in delayed density dependence. Statistical delayed density dependence is more negative towards the east and the interior.
+SN  - 0962-8452
+SN  - 1471-2954
+DA  - SEP 22
+PY  - 1996
+VL  - 263
+IS  - 1374
+SP  - 1117
+EP  - 1126
+DO  - 10.1098/rspb.1996.0164
+AN  - WOS:A1996VK92900004
+ER  -
+
+TY  - JOUR
+AU  - Lheureux, A
+AU  - Savoye, N
+AU  - Del Amo, Y
+AU  - Goberville, E
+AU  - Bozec, Y
+AU  - Breton, E
+AU  - Conan, P
+AU  - L'Helguen, S
+AU  - Mousseau, L
+AU  - Raimbault, P
+AU  - Rimelin-Maury, P
+AU  - Seuront, L
+AU  - Vuillemin, R
+AU  - Caparros, J
+AU  - Cariou, T
+AU  - Cordier, MA
+AU  - Corre, AM
+AU  - Costes, L
+AU  - Crispi, O
+AU  - Crouvoisier, M
+AU  - de Latour, HD
+AU  - Derriennic, H
+AU  - Devesa, J
+AU  - Durozier, M
+AU  - Ferreira, S
+AU  - Garcia, N
+AU  - Grossteffan, E
+AU  - Gueux, A
+AU  - Lafont, M
+AU  - Lagadec, V
+AU  - Lecuyer, E
+AU  - Leroux, C
+AU  - Macé, E
+AU  - Maria, E
+AU  - Mornet, L
+AU  - Nowaczyk, A
+AU  - Parra, M
+AU  - Petit, F
+AU  - David, V
+TI  - Bi-decadal variability in physico-biogeochemical characteristics of temperate coastal ecosystems: from large-scale to local drivers
+T2  - MARINE ECOLOGY PROGRESS SERIES
+AB  - Coastal marine ecosystems, which play a crucial role in the biogeochemical and ecological functioning of the Earth, are highly sensitive to the combined effects of climate and human activities. Because of their location, coastal ecosystems are directly influenced by human activities, but it remains challenging to assess the spatial and temporal scales at which climate influences coastal ecosystems. We monitored 12 sampling stations, distributed in 8 ecosystems in France, over 2 decades for physico-biogeochemical parameters (temperature, salinity, concentrations of dissolved oxygen, nutrients and particulate material). The study encompasses a large diversity of temperate coastal ecosystems with respect to e.g. geomorphology, trophic status, tidal regime, river influence and turbidity. Time-series analysis coupled with standardised 3-mode principal component analyses, partial triadic analyses and correlations were used to assess bi-decadal variability and ecosystem trajectories, and to identify large-scale, regional and local drivers. Our results highlighted 2 abrupt changes in 2001 and 2005. The bi-decadal changes were related to changes in large-scale and regional climate, detected through proxies of temperature and atmospheric circulation, as well as through river discharge. Ecosystem trajectories tended to move towards an increase in temperature and salinity, and/or a decrease in chlorophyll a, nutrients and particulate matter. However, the magnitude of change, the year-to-year variability and the sensitivity to the 2001 and 2005 changes varied among the ecosystems. This study highlights the need for establishing long-term time series and combining data sets as well as undertaking multi-ecosystem and local studies to better understand the long-term variability of coastal ecosystems and its associated drivers.
+SN  - 0171-8630
+SN  - 1616-1599
+DA  - FEB 18
+PY  - 2021
+VL  - 660
+SP  - 19
+EP  - 35
+DO  - 10.3354/meps13577
+AN  - WOS:000624339300002
+ER  -
+
+TY  - JOUR
+AU  - Koslow, JA
+AU  - Wright, M
+TI  - Ichthyoplankton sampling design to monitor marine fish populations and communities
+T2  - MARINE POLICY
+AB  - The ability to assess, model, predict and manage the impacts of climate change and other anthropogenic stressors on marine ecosystems depends on having adequate ecological time series. Unfortunately the development of ecological time series considerably lags those for the physics and chemistry of the oceans. Ichthyoplankton time series are proposed here to fill this gap in ocean observations. Marine fish species spanning a wide range of families, habitats, feeding guilds, and trophic levels broadcast large numbers of their reproductive products into the open waters. For a limited period, the larvae generally reside in the upper 200 m of the water column, where they may be quantitatively sampled with plankton nets. Larval abundance provides a relative index for adult spawning stock biomass, enabling diverse fish communities to be monitored quantitatively by relatively simple means. Recent analyses of the ichthyoplankton time series extending back to 1951 from the California Cooperative Oceanic Fisheries Investigations (CalCOFI) program indicate that non-commercial as well as commercially-exploited taxa have experienced dramatic change in recent decades. The CalCOFI data set is re-sampled here to show that a reduced sampling program one based on a few stations along a single transect (cf > 50 stations along 6 transects for CalCOFI) or one based on a shorter time series can, within limits, obtain similar single-pecies and multivariate patterns of abundance. Ichthyoplankton survey programs may thus provide the basis for a global system of ocean ecological observations in addition to their primary use today for fisheries stock assessment. (C) 2016 Elsevier Ltd. All rights reserved.
+SN  - 0308-597X
+SN  - 1872-9460
+DA  - JUN
+PY  - 2016
+VL  - 68
+SP  - 55
+EP  - 64
+DO  - 10.1016/j.marpol.2016.02.011
+AN  - WOS:000375519300007
+ER  -
+
+TY  - JOUR
+AU  - Atkinson, A
+AU  - Polimene, L
+AU  - Fileman, ES
+AU  - Widdicombe, CE
+AU  - McEvoy, AJ
+AU  - Smyth, TJ
+AU  - Djeghri, N
+AU  - Sailley, SF
+AU  - Cornwell, LE
+TI  - Comment. What drives plankton seasonality in a stratifying shelf sea? Some competing and complementary theories
+T2  - LIMNOLOGY AND OCEANOGRAPHY
+AB  - The Plymouth L4 time plankton series in the Western English Channel is a textbook example of a shallow, stratifying shelf sea system. Over its 30 yr of weekly sampling, this site has provided a diverse and contrasting suite of numerical and conceptual models of plankton bloom formation, phenology, and seasonal succession. The most recent of these papers, Kenitz et al. (2017) has initiated this comment, partly because we feel that it has presented a slightly misleading picture of the plankton composition at this site, and of a robust, recurring seasonal succession. We address this by illustrating the extent of inter-annual variability in phenology that occurs at the site, and which needs to be captured better within models. However our main aim is to foster a much better integration of the variety of top-down and bottom-up processes that have all been suggested to be key in driving seasonal succession. Some of these, particularly the multiple grazing and growth controls contributing to the so-called "loophole hypothesis" may be complementary, but others, such as the role of copepod feeding traits in driving species succession (Kenitz et al. 2017) offer testable competing hypotheses. The basic assumptions and outputs of all these models need to be validated more critically, both against time series data and process studies that include the finding of unselective feeding. We suggest that the variability in plankton phenology (and not just mean timing and amplitude) could be used to diagnose the performance of alternative models of plankton succession.
+SN  - 0024-3590
+SN  - 1939-5590
+DA  - NOV
+PY  - 2018
+VL  - 63
+IS  - 6
+SP  - 2877
+EP  - 2884
+DO  - 10.1002/lno.11036
+AN  - WOS:000450233300040
+ER  -
+
+TY  - JOUR
+AU  - Chong-Montenegro, C
+AU  - Thurstan, RH
+AU  - Pandolfi, JM
+TI  - Quantifying the historical development of recreational fisheries in Southeast Queensland, Australia
+T2  - MARINE ECOLOGY PROGRESS SERIES
+AB  - Recreational fisheries are of global socio-ecological importance and contribute significantly to local economies and fisheries harvests. In some regions of Australia, organized recreational fishing activities have existed for over 150 yr. However, historical understanding of the spatio-temporal development and resource usage of recreational fisheries has been hampered by the lack of continuous time-series catch and effort data. This study used historical newspaper articles of reported landings by fishing clubs to reconstruct catch rate trends and evaluate changes in catch composition of marine recreational fishing activities in Moreton Bay, Queensland, Australia, from 1920-1984. Using generalized additive mixed models, 2 catch rate metrics (no. of fish fisher-1 trip-1 and kg fish fisher-1 trip-1) were constructed as functions of time and distance travelled. Significant nonlinear relationships were found for no. of fish fisher-1 trip-1. Fluctuations in no. of fish fisher-1 trip-1 were strongly influenced by time, while increases in distance travelled predicted a larger no. of fish fisher-1 trip-1. Measures of kg fish fisher-1 trip-1 were tightly linked to increases in distance travelled but did not vary with time. Spatial analysis revealed shifts in areas fished, from inshore reefs during the 1920s and 1930s (pre-WWII) towards isolated offshore island systems in later decades (>1950s; post-WWII). Reported catches pre-WWII were strongly associated with reef species, while reported catches post-WWII were predominantly characterized by demersal coastal fish. Spatially resolved time-series fisheries data can be reconstructed from archival sources, providing valuable information about the development of recreational fishing activities and explaining the historical social-ecological dynamics that led to current ecosystem states.
+SN  - 0171-8630
+SN  - 1616-1599
+DA  - SEP 8
+PY  - 2022
+VL  - 696
+SP  - 135
+EP  - 149
+DO  - 10.3354/meps14138
+AN  - WOS:000854198500010
+ER  -
+
+TY  - CPAPER
+AU  - Ozcan, O
+AU  - Bookhagen, B
+AU  - Musaoglu, N
+ED  - Shortis, M
+ED  - Shimoda, H
+ED  - Cho, K
+TI  - IMPACT OF THE ATATURK DAM LAKE ON AGRO-METEOROLOGICAL ASPECTS OF THE SOUTHEASTERN ANATOLIA REGION USING REMOTE SENSING AND GIS ANALYSIS
+T2  - XXII ISPRS CONGRESS, TECHNICAL COMMISSION VIII
+CP  - 22nd Congress of the International-Society-for-Photogrammetry-and-Remote-Sensing
+AB  - The Ataturk Dam is the fourth largest clay-cored rock fill dam in the world. It was constructed on the Euphrates River located in semi-arid Southeastern Turkey in the 1980s as the central component of a large-scale regional development project for the Southeastern Anatolia region (referred to as GAP). The construction began in 1983 and was completed in 1990. The dam and the hydroelectric power plant, which went into service after filling up the reservoir was accomplished in 1992. The Ataturk Dam, which has a height of 169 m, a total storage capacity of 48.7 million m(3), and a surface area of about 817 km(2) plays an important role in the development of Turkey's energy and agriculture sectors. In this study, the spatial and temporal impacts of the Ataturk Dam on agro-meteorological aspects of the Southeastern Anatolia region have been investigated. Change detection and environmental impacts due to water-reserve changes in Ataturk Dam Lake have been determined and evaluated using multi-temporal Landsat satellite imageries and meteorological datasets within a period of 1984 to 2011. These time series have been evaluated for three time periods. Dam construction period constitutes the first part of the study. Land cover/use changes especially on agricultural fields under the Ataturk Dam Lake and its vicinity have been identified between the periods of 1984 to 1992. The second period comprises the 10-year period after the completion of filling up the reservoir in 1992. At this period, Landsat and meteorological time-series analyses are examined to assess the impact of the Ataturk Dam Lake on selected irrigated agricultural areas. For the last 9-year period from 2002 to 2011, the relationships between seasonal water-reserve changes and irrigated plains under changing climatic factors primarily driving vegetation activity (monthly, seasonal, and annual fluctuations of rainfall rate, air temperature, humidity) on the watershed have been investigated using a 30-year meteorological time series. For all images, geometric corrections including digital elevation information and Tasseled Cap transformations were carried out to attain changes in surface reflectance and denoting disturbance of Landsat reflectance data. Consequently, thematic maps of the affected areas were created by using appropriate visualization and classification techniques in conjunction with geographical information system. The resulting dataset was used in a linear trend analysis to characterize spatiotemporal patterns of vegetation-cover development. Analysis has been conducted in ecological units that have been determined by climate and land cover/use. Based on the results of the trend analysis and the primary factor analysis, selected parts of South-eastern Anatolia region are analyzed. The results showed that approximately 368 km2 of agricultural fields have been affected because of inundation due to the Ataturk Dam Lake. However, irrigated agricultural fields have been increased by 56.3% of the total area (1552 km2 of 2756km(2)) on Harran Plain within the period of 1984 -2011. This study presents an effective method for time-series analysis that can be used to regularly monitor irrigated fields in the Southeastern Anatolia region.
+SN  - 2194-9034
+PY  - 2012
+VL  - 39-B8
+SP  - 305
+EP  - 310
+AN  - WOS:000358207600056
+ER  -
+
+TY  - JOUR
+AU  - Harding, LW
+AU  - Adolf, JE
+AU  - Mallonee, ME
+AU  - Miller, WD
+AU  - Gallegos, CL
+AU  - Perry, ES
+AU  - Johnson, JM
+AU  - Sellner, KG
+AU  - Paerl, HW
+TI  - Climate effects on phytoplankton floral composition in Chesapeake Bay
+T2  - ESTUARINE COASTAL AND SHELF SCIENCE
+AB  - Long-term data on floral composition of phytoplankton are presented to document seasonal and inter-annual variability in Chesapeake Bay related to climate effects on hydrology. Source data consist of the abundances of major taxonomic groups of phytoplankton derived from algal photopigments (1995-2004) and cell counts (1985-2007). Algal photopigments were measured by high-performance liquid chromatography (HPLC) and analyzed using the software CHEMTAX to determine the proportions of chlorophyll-a (chl-a) in major taxonomic groups. Cell counts determined microscopically provided species identifications, enumeration, and dimensions used to obtain proportions of cell volume (CV), plasma volume (PV), and carbon (C) in the same taxonomic groups. We drew upon these two independent data sets to take advantage of the unique strengths of each method, using comparable quantitative measures to express floral composition for the main stem bay. Spatial and temporal variability of floral composition was quantified using data aggregated by season, year, and salinity zone. Both time-series were sufficiently long to encompass the drought flood cycle with commensurate effects on inputs of freshwater and solutes. Diatoms emerged as the predominant taxonomic group, with significant contributions by dinoflagellates, cryptophytes, and cyanobacteria, depending on salinity zone and season. Our analyses revealed increased abundance of diatoms in wet years compared to long-term average (LTA) or dry years. Results are presented in the context of long-term nutrient over-enrichment of the bay, punctuated by inter-annual variability of freshwater flow that strongly affects nutrient loading, chl-a, and floral composition. Statistical analyses generated flow-adjusted diatom abundance and showed significant trends late in the time series, suggesting current and future decreases of nutrient inputs may lead to a reduction of the proportion of biomass comprised by diatoms in an increasingly diverse flora. (C) 2015 Elsevier Ltd. All rights reserved.
+SN  - 0272-7714
+SN  - 1096-0015
+DA  - SEP 5
+PY  - 2015
+VL  - 162
+SP  - 53
+EP  - 68
+DO  - 10.1016/j.ecss.2014.12.030
+AN  - WOS:000360774700007
+ER  -
+
+TY  - JOUR
+AU  - Binder, BJ
+AU  - Chisholm, SW
+AU  - Olson, RJ
+AU  - Frankel, SL
+AU  - Worden, AZ
+TI  - Dynamics of picophytoplankton, ultraphytoplankton and bacteria in the central equatorial Pacific
+T2  - DEEP-SEA RESEARCH PART II-TOPICAL STUDIES IN OCEANOGRAPHY
+AB  - Pico- and ultraplankton are known to contribute significantly to overall biomass and primary productivity in the ''high nutrient-low chlorophyll'' waters of the equatorial Pacific. In order to understand the dynamics of this community on ecologically relevant time-scales, we examined the abundance, distribution and cellular characteristics of Prochlorococcus, Synechococcus, eukaryotic ultraphytoplankton and heterotrophic bacteria during two 20-day time-series at 0 degrees N, 140 degrees W in the spring and fall of 1992 (JGOFS time-series cruises, TS-I and TS-II). Prochlorococcus was numerically dominant among the autotrophic groups considered, with mean cell concentrations in surface waters on the order of 1.4 x 10(5) cells ml(-1). Synechococcus and ultraphytoplankton abundances were 17-30-fold lower than those of Prochlorococcus, and heterotrophic bacterial abundances were 5-7-fold higher (during TS-I and TS-II, respectively). Daily cell abundances for all groups varied by factors of 1.5-2 within each time-series. Depth-integrated Prochlorococcus abundance averaged over each time-series was 25% lower during TS-II relative to TS-I; ultraphytoplankton abundance was 42% higher during the same period. Prochlorococcus and ultraphytoplankton both contributed significantly to the estimated total autotrophic biomass; Synechococcus contributed relatively little. Estimated total photosynthetic pico- plus ultraplankton biomass was on average 30% higher than heterotrophic bacterial biomass.
+   Changes in the fluorescence and light scatter properties of individual Prochlorococcus cells were observed during the passage of a tropical instability wave during TS-II, and are hypothesized to reflect a physiological response among these cells to that event. Examination of bulk properties alone (e.g. cell numbers or total red fluorescence) would not have revealed these physiological changes.
+   Lower bounds for Prochlorococcus-specific growth rates were calculated based on the DNA distributions of these populations at dusk. These rates were maximal at 15 or 30 m depth, where they approached one doubling per day. Changes in Prochlorococcus forward angle light scatter (FALS) from dawn to dusk were well correlated with these estimates of specific growth rate, an observation that allowed us to relate measurements of FALS to cell volume for Prochlorococcus. Copyright (C) 1996 Elsevier Science Ltd.
+SN  - 0967-0645
+PY  - 1996
+VL  - 43
+IS  - 4-6
+SP  - 907
+EP  - 931
+DO  - 10.1016/0967-0645(96)00023-9
+AN  - WOS:A1996VR82300010
+ER  -
+
+TY  - JOUR
+AU  - Kosinski, Z
+AU  - Walczak, L
+TI  - Population dynamics and regulation of the Middle Spotted Woodpecker in strictly protected and managed forests in Western Poland
+T2  - JOURNAL OF ORNITHOLOGY
+AB  - Analysis of ecological time series allows to assess the relative contribution of density-dependent and density-independent factors influencing the regulation of the population of a species. In this study, we investigated whether the annual fluctuation in the population of Middle Spotted Woodpeckers Dendrocoptes medius can be attributed to the direct or delayed density-dependent regulation or to the density-independent factors such as weather conditions during the preceding winter and previous breeding season and/or disturbance in the habitat associated with sanitary felling and salvage logging of trees. This study was conducted in the Czeszewo Forest Reserve, which protects the remnants of semi-natural flood-plain forest, and in the Lowkowiec Forest, which is a managed oak-dominated stand, during 19 seasons (2001-2019). Time series diagnostic revealed that the growth rate of population of Middle Spotted Woodpecker in protected semi-natural riverine forest and in managed oak forest was determined by first-order negative feedback, suggesting an important role of direct density-dependent mortality in the regulation of an equilibrium in population size. The effect of density-dependent process varied between study sites, being lower in riverine forest, where population size has increased distinctly in recent years. In both study areas, we detected strong positive effects of wind chill temperature during the preceding winter on population growth rates. We did not find evidence for the assumption that the increase in population growth rate is affected by weather conditions in the previous breeding season and by the disturbance in the habitat associated with sanitary felling and salvage logging of trees. Our results suggest that Middle Spotted Woodpeckers can benefit from global climate warming by an enhanced rate of winter survival or an increase in the accessibility of food, e.g., insects and other arthropods. The lack of time-lag significant correlations between population fluctuations suggests local habitat conditions, e.g., forest management, can modify inter-annual variability in time series of the Middle Spotted Woodpecker.
+SN  - 2193-7192
+SN  - 2193-7206
+DA  - JUL
+PY  - 2020
+VL  - 161
+IS  - 3
+SP  - 739
+EP  - 751
+DO  - 10.1007/s10336-020-01765-w
+C6  - MAR 2020
+AN  - WOS:000522712200001
+ER  -
+
+TY  - JOUR
+AU  - Zoulias, T
+AU  - Kapiris, K
+AU  - Reizopoulou, S
+TI  - ECOLOGICAL INDICATORS BASED ON FISHERIES LANDING TIME-SERIES DATA: AN APPLICATION TO THREE COASTAL LAGOONS IN AMVRAKIKOS GULF (E. MEDITERRANEAN, GREECE)
+T2  - VIE ET MILIEU-LIFE AND ENVIRONMENT
+AB  - kThe landing time-series in Logarou, Rodia-Tsoukalio and Tsopeli lagoons (Amvrakikos Gulf, NW Greece) were analyzed for the time period 1980-2004 in order to estimate fisheries production in relation to the environmental quality and the anthropogenic pressures imposed on the lagoons. According to the findings, the fishing yields in the studied systems showed a decreasing trend. In Logarou lagoon, a decreasing trend was noticed in the mean trophic level ecological index (mTL) as well as tendency changes in the trophic structure according to the initial sigmoid shape of the relative biomass trophic level spectra (BTLS). Moreover, a 'Fishing down food web (FDFW)' effect for the period 1994-1997 was identified. Rodia-Tsoukalio lagoon complex is characterized by a constant trend of the mTL index as a result of changes in the productivity of the lagoon. In Tsopeli lagoon, the collapse of the eel production and the environmental status of the adjacent coastal area seem to predominate as a driver for the ecological index trend as no obvious source of pollution or significant trophic level composition alterations occurred in the system.
+SN  - 0240-8759
+DA  - DEC
+PY  - 2014
+VL  - 64
+SP  - 9
+EP  - 21
+AN  - WOS:000352047100002
+ER  -
+
+TY  - JOUR
+AU  - Ridgway, MS
+AU  - Pollard, JB
+AU  - Weseloh, DVC
+TI  - Density-dependent growth of double-crested cormorant colonies on Lake Huron
+T2  - CANADIAN JOURNAL OF ZOOLOGY
+AB  - By analyzing 20+ years of data, we found that the nesting colonies of double-crested cormorants (Phalacro-corax auritus (Lesson, 1831)) in the North Channel and Georgian Bay of Lake Huron exhibit density-dependent population regulation. This conclusion is based on four lines of evidence. First, a time series of nest counts at specific colonies (1979-2001) showed density-dependent growth based on randomization tests of the time series. Second, the per capita rate of change in colony size declined with increasing colony size over a 10-year period. Third, a Ricker model of aggregate nest counts showed that population growth of nesting double-crested cormorants stabilized in recent years (through 2003), with K, the carrying capacity parameter, being 11445 nests in the North Channel and 10 815 nests in Georgian Bay. Fourth, a colony area index showed near complete coverage of coastal areas by adult nesters coinciding with overall declines in population growth. High rates of population increase of double-crested cormorants on Lake Huron have largely come to an end, but changes in fish abundance may result in changes in carrying capacity.
+SN  - 0008-4301
+SN  - 1480-3283
+DA  - OCT
+PY  - 2006
+VL  - 84
+IS  - 10
+SP  - 1409
+EP  - 1420
+DO  - 10.1139/Z06-133
+AN  - WOS:000243192700004
+ER  -
+
+TY  - JOUR
+AU  - Becerra-Muñoz, S
+AU  - Catalán-Romero, JM
+AU  - Buelna-Osben, HR
+TI  - DETECTING CAUSATION ON ZOOPLANKTON, ATHERINOPSID, AND BARRED SPLITFIN TIME-SERIES IN A SHALLOW TROPICAL LAKE
+T2  - SOUTHWESTERN NATURALIST
+AB  - We used Multispatial Convergent Cross Mapping analysis to detect causality on monthly differences of zooplankton volume and fish density and biomass time-series of atherinopsids (Chirostoma species) and barred splitfin (Chapalichthys encaustus) from Lake Chapala, Mexico. The dynamics of monthly differences of zooplankton volume were causally influenced by monthly differences in pH. The dynamics of the monthly differences of atherinopsid and barred splitfin density, and atherinopsid biomass, were not causally influenced by monthly differences of any of the measured physicochemical variables. The dynamics of the monthly differences of the barred splitfin biomass were due to monthly differences in water temperature and alkalinity. The dynamics of monthly differences of zooplankton volume did not show any significant causal forcing on the dynamics of monthly differences of density and biomass of atherinopsid and barred splitfin density. The dynamics of monthly differences of atherinopsids showed significant causal influence on the dynamics of the monthly differences of the barred splitfin, but barred splitfin did not show causal influence on the dynamics of the monthly differences of atherinopsids.
+SN  - 0038-4909
+SN  - 1943-6262
+DA  - MAR
+PY  - 2016
+VL  - 61
+IS  - 1
+SP  - 1
+EP  - 7
+AN  - WOS:000378084400001
+ER  -
+
+TY  - JOUR
+AU  - Vuorinen, I
+AU  - Hanninen, J
+AU  - Viitasalo, M
+AU  - Helminen, U
+AU  - Kuosa, H
+TI  - Proportion of copepod biomass declines with decreasing salinity in the Baltic Sea
+T2  - ICES JOURNAL OF MARINE SCIENCE
+CP  - ICES Symposium on Temporal Variability of Plankton and Their Physico-Chemical Environment
+AB  - The biomass ratio of copepoda/cladocera decreased in the Northern Baltic Archipelago Sea (SW Finland) in concert with a decrease in the seawater salinity during the 1980s. There also was an increase in freshwater run-off from the watershed of the Baltic Proper. Seawater salinity correlated negatively with freshwater run-off with a time lag of several years. The abundance percentages of most dominant zooplankton species correlated significantly with salinity, either positively (large neritic copepods), or negatively (freshwater cladocerans). All data sets together indicate a close connection between the functioning of the pelagic Baltic Sea ecosystem and large-scale weather patterns over the run-off area. (C) 1998 International Council for the Exploration of the Sea.
+SN  - 1054-3139
+DA  - AUG
+PY  - 1998
+VL  - 55
+IS  - 4
+SP  - 767
+EP  - 774
+DO  - 10.1006/jmsc.1998.0398
+AN  - WOS:000076754200024
+ER  -
+
+TY  - JOUR
+AU  - Vilibic, I
+AU  - Zemunik, P
+AU  - Sepic, J
+AU  - Dunic, N
+AU  - Marzouk, O
+AU  - Mihanovic, H
+AU  - Denamiel, C
+AU  - Precali, R
+AU  - Djakovac, T
+TI  - Present climate trends and variability in thermohaline properties of the northern Adriatic shelf
+T2  - OCEAN SCIENCE
+AB  - The paper documents seasonality, interannual-to-decadal variability, and trends in temperature, salinity, and density over a transect in the shallow northern Adriatic Sea (Mediterranean Sea) between 1979 and 2017. The amplitude of seasonality decreases with depth and is much larger in temperature and density than in salinity. Time series of temperature and salinity are correlated in the surface but not in the bottom layer. Trends in temperature are large (up to 0.6 degrees C over 10 years), significant through the area, and not sensitive to the sampling interval and time series length. In contrast, trends in salinity are largely small and insignificant and depend on the time series length. The warming of the area is more during spring and summer. Such large temperature trends and their spatial variability emphasize the importance of maintaining regular long-term observations for the proper estimation of thermohaline trends and their variability. This is particularly important in regions which are key for driving thermohaline circulation such as the northern Adriatic, with the potential to affect biogeochemical and ecological properties of the whole Adriatic Sea.
+SN  - 1812-0784
+SN  - 1812-0792
+DA  - OCT 17
+PY  - 2019
+VL  - 15
+IS  - 5
+SP  - 1351
+EP  - 1362
+DO  - 10.5194/os-15-1351-2019
+AN  - WOS:000491151800001
+ER  -
+
+TY  - JOUR
+AU  - Piccardi, F
+AU  - Poli, F
+AU  - Sguotti, C
+AU  - Tirelli, V
+AU  - Borme, D
+AU  - Mazzoldi, C
+AU  - Barausse, A
+TI  - Assessing the impact of the invasive ctenophore Mnemiopsis leidyi on artisanal fisheries in the Venice Lagoon: an interdisciplinary approach
+T2  - HYDROBIOLOGIA
+AB  - The sea walnut, Mnemiopsis leidyi, has invaded and expanded throughout the whole Mediterranean Sea basin. Large blooms were recorded also in the Venice Lagoon (Italy), an ecosystem rich with biodiversity which supports multiple services, including artisanal fishery production. To investigate M. leidyi impacts on lagoon artisanal fisheries, we combined fishers' local ecological knowledge, fishery landing time series analysis, and field sampling. Firstly, we interviewed artisanal fishers to date the blooms of M. leidyi. Secondly, we analyzed long-term fishery landings records to detect whether changes in landings quantity and composition were related to the ctenophore invasion. Thirdly, we sampled catches of the lagoon fyke nets. This interdisciplinary approach overcame the weaknesses of single methodologies and allowed us to reconstruct the temporal phases of M. leidyi invasion in the Venice Lagoon. Moreover, our results indicate that the lagoon landings significantly declined with the blooms, paralleled by the increase of water temperature. Finally, we showed that the mechanical obstruction of the nets, caused by the massive ctenophore blooms, strongly impacts fishing activities. Our results are a first step in assessing the short and long-term impacts of this invasive species on lagoon ecosystems, including its socioeconomic consequences, whose better understanding is fundamental to inform mitigation and adaptation measures.
+SN  - 0018-8158
+SN  - 1573-5117
+DA  - MAY
+PY  - 2025
+VL  - 852
+IS  - 8-9
+SP  - 2387
+EP  - 2405
+DO  - 10.1007/s10750-024-05505-6
+C6  - APR 2024
+AN  - WOS:001206255300001
+ER  -
+
+TY  - JOUR
+AU  - Yoo, JW
+AU  - Lee, HJ
+AU  - Hong, JS
+TI  - Long-term variations in macrobenthic community diversity (species number) in the Chokchon macrotidal flat, Incheon, Korea
+T2  - OCEAN SCIENCE JOURNAL
+AB  - We performed a time-series analysis of environmental variables and biological parameters to understand temporal variations in the macrobenthic community in the Chokchon macrotidal flats, Incheon, Korea. Bimonthly sampling of macrobenthos and sediments was conducted from May 1989 through November 2001. A decomposition method composed of seasonality, trends and cyclical variation was employed in this study. We focused on trends of the selected variables and assumed that those with positive or negative trends caused changes in biological parameters. Most variables showed strong seasonality (aeyen 95% of the total variance). Significant positive trends (p < 0.0001) were observed in sea water temperature and sediment ignition loss. Macrobenthic biomass and species number also showed significant positive trends (p < 0.0001). Biomass indicated that the study area underwent eutrophication since the mid 1990s. A notable increase in species number occurred throughout the study period. The flattened temperature trend after 1994 and intensified eutrophication after the mid 1990s indicated that the species increase in the former period was in response to increasing temperature, while that in the latter period was caused by eutrophication. Although our study suggested an increasing trend in diversity, it is important to check for unexpected changes and establish monitoring programs to provide early warnings, especially in lower latitudes.
+SN  - 1738-5261
+SN  - 2005-7172
+DA  - SEP
+PY  - 2016
+VL  - 51
+IS  - 3
+SP  - 435
+EP  - 445
+DO  - 10.1007/s12601-016-0039-3
+AN  - WOS:000385426100013
+ER  -
+
+TY  - JOUR
+AU  - Mackas, DL
+AU  - Beaugrand, G
+TI  - Comparisons of zooplankton time series
+T2  - JOURNAL OF MARINE SYSTEMS
+CP  - Workshop on the Impact of Climate Variability on Marine Ecosystems
+AB  - Evidence for climate-correlated low frequency variability of various components of marine ecosystems has accumulated rapidly over the past 2 decades. There has also been a growing recognition that society needs to learn how the fluctuations of these various components are linked, and to predict the likely amplitude and steepness of future changes. Demographic characteristics of marine zooplankton make them especially suitable for examining variability of marine ecosystems at interannual to decadal time scales. Their life cycle duration is short enough that there is little carryover of population membership from year to year, but long enough that variability can be tracked with monthly-to-seasonal sampling. Because zooplankton are rarely fished, comparative analysis of changes in their abundance can greatly enhance our ability to evaluate the importance of and interaction between physical environment, food web, and fishery harvest as causal mechanisms driving ecosystem level changes. A number of valuable within-region analyses of zooplankton time series have been published in the past decade, covering a variety of modes of variability including changes in total biomass, changes in size structure and species composition, changes in spatial distribution, and changes in seasonal timing. But because most zooplankton time series are relatively short compared to the time scales of interest, the statistical power of local analyses is often low, and between-region and between-variable comparisons are also needed. In this paper, we review the results of recent within- and between-region analyses. and suggest some priorities for future work. Crown Copyright (C) 2009 Published by Elsevier B.V. All rights reserved.
+SN  - 0924-7963
+SN  - 1879-1573
+DA  - FEB 10
+PY  - 2010
+VL  - 79
+IS  - 3-4
+SP  - 286
+EP  - 304
+DO  - 10.1016/j.jmarsys.2008.11.030
+AN  - WOS:000273052800007
+ER  -
+
+TY  - JOUR
+AU  - Rademaker, M
+AU  - Smallegange, IM
+AU  - van Leeuwen, A
+TI  - Causal links between North Sea fish biomass trends and seabed structure
+T2  - MARINE ECOLOGY PROGRESS SERIES
+AB  - Distinct areas of seabed, called seascapes, are known to shape benthic habitats and communities, yet little is known about the extent to which they affect the dynamics of marine fish populations. We explored the relationship between seascapes and trends in the biomass density of several North Sea fish species. We divided the North Sea into 10 seascapes using standardized methods. Time series of fish biomass density were derived from the North Sea International Bottom-Trawl Survey (NS-IBTS) and aggregated to the seascape level. We analysed the inter-dependencies between these time series using a causal association network and found independent biomass density trends between adjacent seascapes at a time interval of 0 yr in all species assessed. Long-term causal dependencies in biomass density occurred at time lags of 1-2 yr across different gradients of exchange: (1) both directions from North to South; (2) unidirectional, North-South; (3) unidirectional, South-North; (4) unidirectional, East-West; and (5) no clear direction. Our findings indicate that the separation in (a)biotic conditions between North Sea seascapes can represent relevant barriers to the processes determining the observed fish biomass density. We found that non-fusiform morphology and demersal habitat preferences best explained short-term causal dependencies. This combination is particular to the flatfish and ray species included in the present study. Contrarily, the movement of large, long-lived, benthopelagic species best explained long-term causal dependencies. Our work highlights how causal association networks can be used to study the temporal dependencies between spatial time series in ecology.
+SN  - 0171-8630
+SN  - 1616-1599
+DA  - OCT 28
+PY  - 2021
+VL  - 677
+SP  - 129
+EP  - 140
+DO  - 10.3354/meps13845
+AN  - WOS:000713846700009
+ER  -
+
+TY  - CPAPER
+AU  - Ripa, J
+AU  - Ives, AR
+ED  - Vasseur, DA
+ED  - McCann, KS
+TI  - Interaction assessments in correlated and autocorrelated environments
+T2  - IMPACT OF ENVIRONMENTAL VARIABILITY ON ECOLOGICAL SYSTEMS
+CP  - Colloquium on the Impact of Environmental Variability on Ecological Systems
+AB  - Natural food webs are embedded in a variable environment, which causes population densities to fluctuate, despite a potential stable equilibrium. Population interactions as well as the characteristics of the environmental fluctuations determine the resulting population dynamics. Populations sensitive to the same kind of environmental disturbances will show correlated responses in their respective growth rates. Such "environmental correlation" between species can have profound effects on the populations' dynamics, e.g. generating a positive correlation between the abundances of two competitors, which makes a direct correlation a highly inappropriate measure of population interactions. However, multivariate time-series analysis will still identify and quantify population interactions correctly. The picture is more complicated if the environmental fluctuations are correlated over time environmental autocorrelation causes biases in interaction assessments and possibly falsely identified delayed interactions. We present approximate expressions for the estimation bias, which show that the bias is the weakest when food web dynamics are close to unstable. In the absence of close to unstable dynamics the only way to avoid this estimation error is to incorporate the most important environmental drivers as covariates in the time-series analysis.
+SN  - 978-1-4020-5850-9
+PY  - 2007
+VL  - 2
+SP  - 111
+EP  - +
+AN  - WOS:000248254100006
+ER  -
+
+TY  - JOUR
+AU  - Kendall, BE
+AU  - Prendergast, J
+AU  - Bjornstad, ON
+TI  - The macroecology of population dynamics: taxonomic and biogeographic patterns in population cycles
+T2  - ECOLOGY LETTERS
+AB  - Regular cycles in population abundance are fascinating phenomena, but are they common in natural populations? How are they distributed among taxa? Are there differences between different regions of the world, or along latitudinal gradients? Using the new Global Population Dynamics Database we analysed nearly 700 long (25 + years) time series of animal field populations, looking for large-scale patterns in cycles. Nearly 30% of the time series were cyclic. Cycle incidence varied among taxonomic classes, being most common in mammal and fish populations, but only in fish did cycle incidence vary among orders. Cycles were equally common in European and North American populations, but were more common in Atlantic fish than Pacific fish. The incidence of cycles increased with latitude in mammals only. There was no latitudinal gradient in cycle period, but cycle amplitude declined with latitude in some groups of fish. Even after considering the biases in the data source and expected type I error, population cycles seem common enough to warrant ecological attention.
+SN  - 1461-023X
+DA  - NOV
+PY  - 1998
+VL  - 1
+IS  - 3
+SP  - 160
+EP  - 164
+AN  - WOS:000078303200006
+ER  -
+
+TY  - JOUR
+AU  - Whomersley, P
+AU  - Schratzberger, M
+AU  - Huxham, M
+AU  - Bates, H
+AU  - Rees, H
+TI  - The use of time-series data in the assessment of macrobenthic community change after the cessation of sewage-sludge disposal in Liverpool Bay (UK)
+T2  - MARINE POLLUTION BULLETIN
+AB  - Sewage sludge was disposed of in Liverpool Bay for over 100 years. Annual amounts increased from 0.5 million tonnes per annum in 1900 to approximately 2 million tonnes per annum by 1995. Macrofauna and a suite of environmental variables were collected at a station adjacent to, and a reference station distant from, the disposal site over 13 years, spanning a pre- (1990-1998) and post- (1999-2003) cessation period. Univariate and multivariate analyses of the time-series data showed significant community differences between reference and disposal site stations and multivariate analyses revealed station-specific community development post-disposal. Temporal variability of communities collected at the disposal station post-cessation was higher than during years of disposal, when temporally stable dominance patterns of disturbance-tolerant species had established. Alterations of community structure post-disturbance reflected successional changes possibly driven by facilitation. Subtle faunistic changes at the Liverpool Bay disposal site indicate that the near-field effects of the disposal of sewage sludge were small and therefore could be considered environmentally acceptable. Crown Copyright (c) 2006 Published by Elsevier Ltd. All rights reserved.
+SN  - 0025-326X
+SN  - 1879-3363
+DA  - JAN
+PY  - 2007
+VL  - 54
+IS  - 1
+SP  - 32
+EP  - 41
+DO  - 10.1016/j.marpolbul.2006.07.008
+AN  - WOS:000244208500013
+ER  -
+
+TY  - JOUR
+AU  - Pasanen, L
+AU  - Laukkanen-Nevala, P
+AU  - Launonen, I
+AU  - Prusov, S
+AU  - Holmström, L
+AU  - Niemelä, E
+AU  - Erkinaro, J
+TI  - Extraction of sea temperature in the Barents Sea by a scale space multiresolution method - prospects for Atlantic salmon
+T2  - JOURNAL OF APPLIED STATISTICS
+AB  - Variation of marine temperature at different time scales is a central environmental factor in the life cycle of marine organisms, and may have particular importance for various life stages of anadromous species, for example, Atlantic salmon. To understand the salient features of temperature variation we employ scale space multiresolution analysis, that uses differences of smooths of a time series to decompose it as a sum of scale-dependent components. The number of resolved components can be determined either automatically or by exploring a map that visualizes the structure of the time series. The statistical credibility of the features of the components is established with Bayesian inference. The method was applied to analyze a marine temperature time series measured from the Barents Sea and its correlation with the abundance of Atlantic salmon in three Barents Sea rivers. Besides the annual seasonal variation and a linear trend, the method revealed mid time-scale (approximate to 10 years) and long time-scale (approximate to 30 years) variation. The 10-year quasi-cyclical component of the temperature time series appears to be connected with a similar feature in Atlantic salmon abundance. These findings can provide information about the environmental factors affecting seasonal and periodic variation in survival and migrations of Atlantic salmon and other migratory fish.
+SN  - 0266-4763
+SN  - 1360-0532
+PY  - 2017
+VL  - 44
+IS  - 13
+SP  - 2317
+EP  - 2336
+DO  - 10.1080/02664763.2016.1252731
+AN  - WOS:000407163900003
+ER  -
