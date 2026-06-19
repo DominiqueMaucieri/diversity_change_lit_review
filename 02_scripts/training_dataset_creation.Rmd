@@ -1,0 +1,101 @@
+---
+title: "Subsetting out the inital training and holdback data sets"
+subtitle: "NLP for Tile and Abstract Screening as part of a literature review extracting diversity changes over space and time"
+author: '[Dominique Maucieri](https://www.dominiquemaucieri.com)'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  pdf_document:
+    toc: yes
+    toc_depth: 4
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Environment setup
+
+```{r setup, include=FALSE}
+#run this chunk to set up the environment to run the rest of the code
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, tidy = TRUE, message=FALSE)
+
+#To clear the workspace
+rm(list = ls(all = T))
+
+# Packages
+library(here)
+
+```
+
+
+# Creating initial training data set
+
+This code will only be run once to extract and export the training data set for manual classification in Covidence
+
+
+```{r}
+#parameters
+number_of_training_samples <- 100
+number_of_holdout_samples <- 100
+```
+
+
+# Combining dataset and removing duplicates
+
+**code if needed
+
+
+# Subsetting
+
+
+Code randomly subsets the `number_of_training_samples` and `number_of_holdout_samples` as specified above and then saves the first portion as covidence training samples and the second portion as the holdout training set. 
+
+Code retains the RIS formatting needed to upload to Covidence
+
+```{r}
+# creating training set
+example_references <- readLines(here("05_archived_examples/example_nlp" ,
+                                    "wos_download_full.ris"), warn = FALSE)
+
+all_references <- example_references
+
+# all_references <- readLines(here("01_data/inital_raw_database_downloads" ,
+#                                     "wos_download_full.ris"), warn = FALSE)
+
+end_of_sample_indices <- which(all_references == "ER  -")
+
+all_papers <- list()
+start_idx <- 1
+
+for (end_idx in end_of_sample_indices) {
+  all_papers[[length(all_papers) + 1]] <- all_references[start_idx:end_idx]
+  start_idx <- end_idx + 1
+}
+
+set.seed(756)
+training_and_holdout_samples <- sample(all_papers, 
+                           size = number_of_training_samples + number_of_holdout_samples,
+                           replace = FALSE)
+
+training_samples <- training_and_holdout_samples[1:number_of_training_samples]
+
+
+training_output_lines <- unlist(training_samples)
+
+writeLines(training_output_lines, 
+           con = here("01_data/initial_to_be_classified",
+                      "unclassified_initial_covidence_training.ris"), useBytes = TRUE)
+
+
+holdout_samples <- training_and_holdout_samples[(number_of_training_samples +
+                                                   1):(number_of_training_samples + 
+                                                         number_of_holdout_samples)]
+
+holdout_output_lines <- unlist(holdout_samples)
+
+writeLines(holdout_output_lines, 
+           con = here("03_holdout_data/to_be_classified",
+                      "unclassified_holdout_samples.ris"), useBytes = TRUE)
+
+
+```

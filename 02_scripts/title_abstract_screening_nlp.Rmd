@@ -1,6 +1,6 @@
 ---
-title: "Creating literature review workflow"
-subtitle: "For extracting diversity changes over space and time"
+title: "NLP for Title and Abstract Screening"
+subtitle: "The goal of this script is to run in background of others to perform the model training"
 author: '[Dominique Maucieri](https://www.dominiquemaucieri.com)'
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
@@ -12,44 +12,31 @@ editor_options:
     wrap: 72
 ---
 
-# 01.0 SETUP
+
+
+# 0.0 SETUP
 
 ```{r setup, include=FALSE}
+#run this chunk to set up the environment to run the rest of the code
+
 knitr::opts_chunk$set(echo=FALSE, warning=FALSE, tidy = TRUE, message=FALSE)
 
-#To clear the workspace
-rm(list = ls(all = T))
-
-# My theme
-theme.custom <- function () {
-  theme_bw(base_size = 12, 
-           base_family = "serif") +
-  theme(panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    axis.line = element_line(colour = "black"),
-    axis.title = element_text(size = 14, face = "bold"),
-    axis.text = element_text(size = 12, face = "plain"),
-    legend.text = element_text(size = 12, face = "plain"),
-    legend.title = element_text(size = 14, face = "bold"),
-    panel.background = element_rect(fill = NA, color = NA),
-    plot.background = element_rect(fill = NA, color = NA),
-    legend.background = element_rect(fill = NA, color = NA),
-    legend.box.background = element_rect(fill = NA, color = NA))
-}
 
 # Packages
 library(here)
-library(readxl)
-library(NLP)
-library(tm)
-library(tokenizers)
 library(tidyverse)
 library(tidytext)
-library(caret)
-library(e1071)
-library(SnowballC)
-library(synthesisr)
-library(stringi)
+library(textstem)
+# library(readxl)
+# library(NLP)
+# library(tm)
+# library(tokenizers)
+
+# library(caret)
+# library(e1071)
+# library(SnowballC)
+# library(synthesisr)
+# library(stringi)
 
 
 # greek
@@ -82,13 +69,12 @@ greek_to_english <- c(
 
 
 # functions
-
 tidy_text <- function(dataframe) {
   dataframe %>%
     mutate(title_abstract = str_replace_all(title_abstract, greek_to_english)) %>%
     unnest_tokens(word, title_abstract, token = "words", to_lower = TRUE) %>%
     anti_join(stop_words, by = "word") %>%
-    mutate(word = wordStem(word)) %>%
+    mutate(word = lemmatize_words(word)) %>%
     filter(!str_detect(word, "[0-9]")) %>%
     filter(word != "" & !is.na(word))%>%
     filter(!str_detect(word, "[^a-zA-Z]")) 
@@ -97,46 +83,38 @@ tidy_text <- function(dataframe) {
 ```
 
 
-# Creating initial training data set
-```{r, eval = FALSE}
-# creating training set
-example_abstracts <- readLines(here("example_training" ,"wos_download_full.ris"), warn = FALSE)
-
-end_of_record_indices <- which(example_abstracts == "ER  -")
-
-records <- list()
-start_idx <- 1
-
-for (end_idx in end_of_record_indices) {
-  records[[length(records) + 1]] <- example_abstracts[start_idx:end_idx]
-  start_idx <- end_idx + 1
-}
-
-set.seed(756)
-training_records <- sample(records, length(records)*0.1)
-
-output_lines <- unlist(training_records)
-
-writeLines(output_lines, con = here("example_training","initial_covidence_training.ris"), useBytes = TRUE)
-```
+# 1.0 importing data
 
 ```{r}
-
-initial_training_irrelevant <- read.csv(here("example_training", "initial_training_irrelevant.csv")) %>% 
+#downloading this iterations labelled data
+iteration_irrelevant <- read.csv(here(paste0("01_imported_data/Covidence_", 
+                                                    training_iteration_number), 
+                                             paste0("irrelevant_",
+                                                    training_iteration_number,
+                                                    ".csv"))) %>% 
   mutate(vote = "Irrelevant")
-initial_training_included <- read.csv(here("example_training", "initial_training_included.csv")) %>% 
+iteration_included <- read.csv(here(paste0("01_imported_data/Covidence_", 
+                                                    training_iteration_number), 
+                                             paste0("relevant_",
+                                                    training_iteration_number,
+                                                    ".csv"))) %>% 
   mutate(vote = "Relevant")
-initial_training_excluded <- read.csv(here("example_training", "initial_training_excluded.csv")) %>% 
+iteration_excluded <- read.csv(here(paste0("01_imported_data/Covidence_", 
+                                                    training_iteration_number), 
+                                             paste0("excluded_",
+                                                    training_iteration_number,
+                                                    ".csv"))) %>% 
   mutate(vote = "Relevant")
 
-initial_training_votes <- rbind(initial_training_irrelevant, initial_training_included, 
-                                initial_training_excluded) %>%
+iteration_votes <- rbind(iteration_irrelevant, iteration_included, iteration_excluded) %>%
   as.data.frame() %>%
   mutate(matching_title = tolower(str_replace_all(Title, "[^a-zA-Z0-9]", ""))) %>%
   select(matching_title, vote) %>%
   distinct(matching_title, .keep_all = TRUE)
 
 ```
+
+
 
 ```{r}
 wos_download_full <- read_refs(here("example_training" ,"wos_download_full.ris")) %>%
@@ -149,7 +127,7 @@ initial_training_papers_with_votes <- wos_download_full %>%
   mutate(title_abstract = paste(title, abstract, sep = " "))
 ```
 
-# cleaning up text data and tokenizing 
+## cleaning up text data and tokenizing 
 
 ```{r}
 
@@ -182,17 +160,18 @@ initial_training_tidy_counts_noid <- initial_training_tidy_counts %>%
 ```
 
 
-# lets train that model 
+## lets train that model 
 
 ```{r}
 svm_model <- svm(vote ~ ., data = initial_training_tidy_counts_noid, 
                  kernel = "linear", cost = 1, probability = TRUE)
+print(svm_model)
 ```
 
 
 
 
-# now lets try this on the other abstracts
+## now lets try this on the other abstracts
 
 
 
@@ -246,10 +225,10 @@ the_rest_of_the_abstracts_scored <- the_rest_of_the_abstracts %>%
 ```
 
 
-# export the next batch for classification
+## export the next batch for classification
 
 ```{r}
-next_batch_ids <- scored_unlabeled %>%
+next_batch_ids <- the_rest_of_the_abstracts_scored %>%
   mutate(uncertainty = abs(Probability_Relevant - 0.5)) %>%
   arrange(uncertainty) %>%
   head(50) %>%
@@ -276,5 +255,24 @@ output_lines_for_round_2 <- records[next_batch_ids] %>%
 
 writeLines(output_lines_for_round_2, con = here("example_training","covidence_round_2.ris"), useBytes = TRUE)
 
+```
+
+
+# Round 2
+
+```{r}
+round_2_irrelevant <- read.csv(here("example_training", "round_2_irrelevant.csv")) %>% 
+  mutate(vote = "Irrelevant")
+round_2_included <- read.csv(here("example_training", "round_2_included.csv")) %>% 
+  mutate(vote = "Relevant")
+round_2_excluded <- read.csv(here("example_training", "round_2_excluded.csv")) %>% 
+  mutate(vote = "Relevant")
+
+round_2_votes <- rbind(round_2_irrelevant, round_2_included, 
+                                round_2_excluded) %>%
+  as.data.frame() %>%
+  mutate(matching_title = tolower(str_replace_all(Title, "[^a-zA-Z0-9]", ""))) %>%
+  select(matching_title, vote) %>%
+  distinct(matching_title, .keep_all = TRUE)
 ```
 
