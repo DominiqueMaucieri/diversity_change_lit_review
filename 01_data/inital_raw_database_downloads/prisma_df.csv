@@ -1,0 +1,16 @@
+"","step","Scopus","WoS","OpenAlex"
+"initial_download","initial_download",1664408,1573923,1565284
+"selected_works","selected_works",1560187,1488004,1219625
+"no_title","no_title",17,0,579
+"selected_works_w_all_titles","selected_works_w_all_titles",1560186,1488004,1219425
+"unique_titles","unique_titles",1555071,1487193,1187884
+"originally_english_titles","originally_english_titles",1547463,1483992,1143242
+"originally_non_english_titles","originally_non_english_titles",1821,3201,44642
+"originally_english_abstracts","originally_english_abstracts",NA,NA,NA
+"originally_non_english_abstracts","originally_non_english_abstracts",NA,NA,NA
+"n_possible_duplicates","n_possible_duplicates",15646,2381,72575
+"duplicates_removed","duplicates_removed",10403,1477,51558
+"final_cleaned","final_cleaned",1549783,1486527,1167867
+"percent_unique","percent_unique",19.6,21.5,35.7
+"number_unique","number_unique",303515,319996,416642
+"database_proportion","database_proportion",0.37,0.35,0.28
