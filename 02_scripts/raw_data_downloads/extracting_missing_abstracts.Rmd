@@ -1,0 +1,331 @@
+---
+title: "Extracting missing abstracts"
+subtitle: "Diversity Change Literature Review"
+author: '[Dominique Maucieri](https://www.dominiquemaucieri.com)'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  pdf_document:
+    toc: yes
+    toc_depth: 4
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Setup
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, tidy = TRUE, message=FALSE)
+
+#To clear the workspace
+rm(list = ls(all = T))
+
+#packages
+library(here)
+library(tidyverse)
+library(stringr)
+library(stringi)
+library(polyglotr)
+library(magrittr)
+library(cld2)
+library(httr)
+library(jsonlite)
+library(rvest)
+library(pbapply)
+library(parallel)
+library(lubridate)
+library(openalexR)
+library(rcrossref)
+library(chromote)
+library(polite)
+library(readxl)
+library(httr2)
+library(metagear)
+library(rentrez)
+library(xml2)
+library(beepr)
+
+
+google_api_url <- "https://translate.googleapis.com/translate_a/single"
+
+#API keys
+options(openalexR.apikey = "REMOVED")
+options(crossref_email = "REMOVED")
+elsevier_api_key <- "REMOVED" 
+semantic_scholar_api_key <- "REMOVED"
+
+```
+
+
+# Helper function
+
+```{r}
+#helper functions
+get_abstract_via_scopus_api <- function(doi, api_key) {
+  
+  doi_clean <- gsub("^https?://(dx\\.)?doi\\.org/", "", doi)
+  search_url <- "https://api.elsevier.com/content/search/scopus"
+  
+  search_resp <- tryCatch({
+    request(search_url) %>%
+      req_headers(
+        "X-ELS-APIKey" = api_key, 
+        "Accept" = "application/json"
+      ) %>%
+      req_url_query(query = paste0("DOI(", doi_clean, ")")) %>%
+      req_perform() %>%
+      resp_body_json()
+  }, error = function(e) {
+    message("Scopus Search request failed: ", e$message)          
+    return(NULL)   })      
+  
+  if (is.null(search_resp)) return(NA_character_)   
+  
+  entries <- search_resp$`search-results`$entry      
+  
+  if (is.null(entries) || length(entries) == 0) {          
+    message("DOI not found in Scopus search.")         
+    return(NA_character_)   
+  }      
+  
+  raw_id <- entries[[1]]$`dc:identifier`
+  scopus_id <- NULL
+  id_type <- "scopus_id"
+  
+  if (!is.null(raw_id)) {
+    scopus_id <- gsub("^SCOPUS_ID:", "", raw_id)
+  } else if (!is.null(entries[[1]]$eid)) {
+    scopus_id <- entries[[1]]$eid
+    id_type <- "eid"
+  }
+  
+  if (is.null(scopus_id) || nchar(scopus_id) == 0) {
+    message("Could not extract a valid Scopus ID from search results.")
+    return(NA_character_)
+  }
+  
+  abstract_url <- paste0("https://api.elsevier.com/content/abstract/", id_type, "/", scopus_id)
+  
+  abs_resp <- tryCatch({
+    request(abstract_url) %>%
+      req_headers(
+        "X-ELS-APIKey" = api_key, 
+        "Accept" = "application/json"
+      ) %>%
+      req_perform() %>%
+      resp_body_json()
+  }, error = function(e) {
+    message("Abstract Retrieval request failed for ", id_type, " ", scopus_id, ": ", e$message)          
+    return(NULL)   
+    })      
+  if (is.null(abs_resp)) return(NA_character_)     
+  
+  abstract_text <- abs_resp$`abstracts-retrieval-response`$coredata$`dc:description`
+  
+  if (!is.null(abstract_text) && nchar(trimws(abstract_text)) > 0) {
+    return(trimws(abstract_text))
+  } else {
+    message("Abstract field is empty in Scopus record for ID: ", scopus_id)
+    return(NA_character_)
+  }
+}
+
+
+
+get_pubmed_abstract <- function(doi) {
+  search_res <- entrez_search(db = "pubmed", term = paste0(doi, "[aid]"))
+  if (length(search_res$ids) == 0) return(NA_character_)
+  xml_data <- entrez_fetch(db = "pubmed", id = search_res$ids[1], rettype = "xml")
+  doc <- read_xml(xml_data)
+  abstract_node <- xml_find_all(doc, "//Abstract/AbstractText")
+  if (length(abstract_node) == 0) return(NA_character_)
+  return(paste(xml_text(abstract_node), collapse = " "))
+}
+
+get_abstract_ss_authenticated <- function(doi, api_key) {
+  url <- paste0("https://api.semanticscholar.org/graph/v1/paper/DOI:", doi, "?fields=title,abstract")
+  
+  res <- tryCatch(
+    GET(
+      url,
+      add_headers(
+        "x-api-key" = api_key,
+        "User-Agent" = "R-Research-Script/1.0"
+      )
+    ),
+    error = function(e) NULL
+  )
+  
+  if (is.null(res)) return(NA_character_)
+  
+  if (status_code(res) == 429) {
+    retry_after <- as.numeric(headers(res)[["retry-after"]])
+    wait_time <- if (!is.na(retry_after) && retry_after > 0) retry_after else 2
+    
+    message(paste("Rate limited (429). Waiting", wait_time, "seconds..."))
+    Sys.sleep(wait_time)
+    
+   return(get_abstract_ss_authenticated(doi, api_key))
+  }
+  
+  if (status_code(res) != 200) {
+    warning(paste("HTTP Error:", status_code(res), "for DOI:", doi))
+    return(NA_character_)
+  }
+  
+  data <- tryCatch(
+    fromJSON(content(res, "text", encoding = "UTF-8")),
+    error = function(e) NULL
+  )
+  
+  abstract_val <- data$abstract
+  
+  if (!is.null(abstract_val) && 
+      length(abstract_val) > 0 && 
+      !is.na(abstract_val) && 
+      nchar(trimws(abstract_val)) > 0) {
+    return(as.character(abstract_val))
+  } else {
+    return(NA_character_)
+  }
+}
+```
+
+
+# Scraping Loop
+
+```{r}
+
+folder_path <- here("01_data/inital_raw_database_downloads/abstract_scraping", "")
+#replace with wherever your folder is
+
+no_abstract_filenames <- list.files(paste0(folder_path, "empty")) %>%
+  grep(., pattern = "_empty.csv", value = TRUE) %>%
+  gsub("_empty.csv", "", .) 
+
+
+
+for(j in 1:length(no_abstract_filenames)){
+  
+  if(file.exists(paste0(folder_path, "filled/", no_abstract_filenames[j], 
+                        "_filled.csv"))) next
+  
+  start.time <- Sys.time()
+
+  no_abstracts_batch_j <- read.csv(paste0(folder_path, "empty/", 
+                                          no_abstract_filenames[j], "_empty.csv")) %>%
+    mutate(source = NA)
+
+  for(i in 1:nrow(no_abstracts_batch_j)){
+  
+    if(!is.na(no_abstracts_batch_j[i,"abstract"])) next
+   
+    #first pubmed
+     pubmed_try <- tryCatch({
+          get_pubmed_abstract(no_abstracts_batch_j[i,"doi"])
+        }, error = function(e) {
+          return(NA)
+        })
+  
+        if(!is.na(pubmed_try) && pubmed_try != ""){
+         no_abstracts_batch_j[i,"abstract"] <- pubmed_try
+         no_abstracts_batch_j[i,"source"] <- "pubmed"
+         next
+        } 
+     
+     
+     #next crossref
+      crossref_try <- tryCatch({
+          cr_abstract(doi = no_abstracts_batch_j[i,"doi"])
+            }, error = function(e) {
+              return(NA)
+            })
+                
+          if(!is.na(crossref_try) && crossref_try != ""){
+            no_abstracts_batch_j[i,"abstract"] <- crossref_try
+            no_abstracts_batch_j[i,"source"] <- "crossref"
+            next
+          } 
+    
+    #next semantic scholar
+   ss_try <- tryCatch({
+                get_abstract_ss_authenticated(
+                    doi = no_abstracts_batch_j[i, "doi"], 
+                    api_key = semantic_scholar_api_key
+                  )
+                }, error = function(e) {
+                  return(NA_character_)
+                })
+        Sys.sleep(1)
+  
+          
+          if (!is.null(ss_try) && length(ss_try) > 0 && !is.na(ss_try) && 
+              nchar(trimws(ss_try)) > 0) {
+            no_abstracts_batch_j[i, "abstract"] <- ss_try
+            no_abstracts_batch_j[i, "source"]   <- "SS"
+            next
+          }
+    
+    #then scopus
+     scopus_api_try <- tryCatch({
+          get_abstract_via_scopus_api(no_abstracts_batch_j[i,"doi"], elsevier_api_key)
+        }, error = function(e) {
+          return(NA_character_)
+        })
+       Sys.sleep(1) 
+  
+        if(!is.null(scopus_api_try) && length(scopus_api_try) > 0 && 
+           !is.na(scopus_api_try) && nchar(trimws(scopus_api_try)) > 0){
+         no_abstracts_batch_j[i,"abstract"] <- scopus_api_try
+         no_abstracts_batch_j[i,"source"] <- "scopus"
+         next
+        } 
+  
+    
+    #last ditch openalex
+      openalex_try <- tryCatch({
+          oa_fetch(
+            entity = "works",
+            doi = no_abstracts_batch_j[i,"doi"],
+            verbose = TRUE,
+            abstract = TRUE
+            )
+        }, error = function(e) {
+          return(NA)
+        })
+  
+      if("abstract" %in% names(openalex_try)){
+  
+        no_abstracts_batch_j[i,"abstract"] <- openalex_try %>%
+          filter(!is.na(abstract)) %>%
+          slice(1) %>%
+          pull(abstract)
+       no_abstracts_batch_j[i,"source"] <- "OpenAlex"
+       next
+      }
+      
+  }
+  
+  write.csv(no_abstracts_batch_j, paste0(folder_path, "filled/", no_abstract_filenames[j], "_filled.csv"),
+          row.names = FALSE)
+  
+  end.time <- Sys.time()
+  time.taken <- end.time - start.time
+  
+  print(paste0(no_abstract_filenames[j], ": ", round(time.taken, 3), " ", units(time.taken), " with ",
+               no_abstracts_batch_j %>%
+                  filter(is.na(abstract)) %>%
+                    nrow(.), 
+               " missing abstracts"))
+  beep(3)
+}
+
+```
+
+
+
+
+
+
+

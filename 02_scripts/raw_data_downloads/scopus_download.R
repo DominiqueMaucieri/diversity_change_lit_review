@@ -10,25 +10,27 @@ library(here)
 library(readr)
 
 
-set_api_key("a20af0da26bc953a4a7bd0dc39e8b684")
-scopus_api_key <- "a20af0da26bc953a4a7bd0dc39e8b684"
+scopus_api_key <- "REMOVED"
+set_api_key("REMOVED")
 
 api_headers <- c(
   `X-ELS-APIKey`    = scopus_api_key,
   `Accept`          = "application/json"
 )
 
+
 # Targeted search parameters
-keywords_1 <- "(species OR population OR community OR assemblage OR ecological)"
-keywords_2 <- "(richness OR abundance OR trend OR diversity OR composition OR response)"
-base_query <- paste0("TITLE-ABS-KEY(", keywords_1, " AND ", keywords_2, ")")
+keywords_1 <- "(species OR population* OR communit* OR assemblage* OR ecological)"
+keywords_2 <- "(richness OR abundan* OR count* OR cover* OR densit* OR biomass* OR diversit* OR composition*)"
+keywords_3 <-"(respon* OR trend* OR impact* OR outcome* OR chang* OR effect*)"
+base_query   <- paste0("TITLE-ABS(", keywords_1, " AND ", keywords_2, " AND ", keywords_3, ")")
 
 
 
 # either build or import the ledger
-if (file.exists(here("01_data/inital_raw_database_downloads/Scopus", "download_progress_ledger.csv"))) {
+if (file.exists(here("01_data/inital_raw_database_downloads/Scopus", "scopus_download_progress_ledger.csv"))) {
   ledger <- read.csv(here("01_data/inital_raw_database_downloads/Scopus", 
-                          "download_progress_ledger.csv"), stringsAsFactors = FALSE)
+                          "scopus_download_progress_ledger.csv"), stringsAsFactors = FALSE)
 } else {
   years_to_process <- 1700:2035
   
@@ -47,9 +49,25 @@ if (file.exists(here("01_data/inital_raw_database_downloads/Scopus", "download_p
     
     # Use native rscopus tool to check expected counts safely
     raw_count <- tryCatch({
-      res <- scopus_search(query = query_str, count = 1, view = "STANDARD")
-      as.integer(res$total_results)
+      # Direct API request asking for count = 0 (only returns the total_results header)
+      res <- GET(
+        url = "https://api.elsevier.com/content/search/scopus",
+        query = list(query = query_str, count = 0),
+        add_headers(
+          `X-ELS-APIKey` = scopus_api_key,
+          `Accept` = "application/json"
+        )
+      )
+      
+      if (status_code(res) == 200) {
+        data <- content(res, as = "parsed", type = "application/json")
+        as.integer(data$`search-results`$`opensearch:totalResults`)
+      } else {
+        cat(sprintf("\nHTTP Error %d: %s\n", status_code(res), content(res, "text")))
+        NA_integer_
+      }
     }, error = function(e) {
+      cat(sprintf("\nError: %s\n", e$message))
       return(NA_integer_)
     })
     
@@ -64,12 +82,14 @@ if (file.exists(here("01_data/inital_raw_database_downloads/Scopus", "download_p
   }
   
   ledger_no0s <- ledger %>% 
-    filter(expected_count > 0)
+    filter(expected_count > 0) %>%
+    mutate(download_date = as.Date(NA))
+  
   write.csv(ledger_no0s, here("01_data/inital_raw_database_downloads/Scopus", 
-                              "download_progress_ledger.csv"), row.names = FALSE)
+                              "scopus_download_progress_ledger.csv"), row.names = FALSE)
   
   ledger <- read.csv(here("01_data/inital_raw_database_downloads/Scopus", 
-                          "download_progress_ledger.csv"), stringsAsFactors = FALSE)
+                          "scopus_download_progress_ledger.csv"), stringsAsFactors = FALSE)
 }
 
 years_to_process <- ledger$year
@@ -196,9 +216,11 @@ for (yr in years_to_process) {
   
   # Update and save ledger records
   ledger$downloaded_count[row_idx] <- nrow(final_df_flat)
+  ledger$download_date[row_idx] <- Sys.Date()
+  
   ledger$status[row_idx] <- if_else(nrow(final_df_flat) >= exp_count, "Completed", "Pending")
   write.csv(ledger, here("01_data/inital_raw_database_downloads/Scopus", 
-                         "download_progress_ledger.csv"), row.names = FALSE)
+                         "scopus_download_progress_ledger.csv"), row.names = FALSE)
   
   Sys.sleep(1.5)
 }
@@ -208,7 +230,9 @@ for (yr in years_to_process) {
 
 # combine all together
 
-all_csv_files <- list.files(path = SEP_DIR, pattern = "^scopus_export_year_\\d{4}\\.csv$", full.names = TRUE) %>%
+all_csv_files <- list.files(path =  here("01_data/inital_raw_database_downloads/Scopus/separated"), 
+                                         pattern = "^scopus_export_year_\\d{4}\\.csv$", 
+                                         full.names = TRUE) %>%
   map_df(~read_csv(.x, col_types = cols(.default = "c"), show_col_types = FALSE)) %>%
   distinct(id, .keep_all = TRUE) %>%
   mutate(
@@ -218,3 +242,17 @@ all_csv_files <- list.files(path = SEP_DIR, pattern = "^scopus_export_year_\\d{4
 
 write.csv(all_csv_files, file = here("01_data/inital_raw_database_downloads/Scopus", 
                                      "raw_full_scopus_export.csv"), row.names = FALSE)
+
+
+
+#adding download dates manually as they werent in the loop originally
+
+for(i in 1:nrow(ledger)){
+  
+  full_output_path <- file.path(here("01_data/inital_raw_database_downloads/Scopus/separated",
+                                     sprintf("scopus_export_year_%04d.csv", ledger$year[i])))
+  ledger$download_date[i] <- as.Date(file.info(full_output_path)$mtime)
+}
+write.csv(ledger, here("01_data/inital_raw_database_downloads/Scopus",
+                       "x"), row.names = FALSE)
+

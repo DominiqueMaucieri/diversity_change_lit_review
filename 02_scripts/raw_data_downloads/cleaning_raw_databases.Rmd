@@ -1,0 +1,1291 @@
+---
+title: "Cleaning raw database data"
+subtitle: "Diversity Change Literature Review"
+author: '[Dominique Maucieri](https://www.dominiquemaucieri.com)'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  pdf_document:
+    toc: yes
+    toc_depth: 4
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Setup
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, tidy = TRUE, message=FALSE)
+
+#To clear the workspace
+rm(list = ls(all = T))
+
+#packages
+library(here)
+library(tidyverse)
+library(stringr)
+library(stringi)
+library(polyglotr)
+library(magrittr)
+library(cld2)
+library(httr)
+library(jsonlite)
+library(rvest)
+library(pbapply)
+library(parallel)
+library(lubridate)
+library(openalexR)
+library(rcrossref)
+library(chromote)
+library(polite)
+library(readxl)
+library(httr2)
+
+
+google_api_url <- "https://translate.googleapis.com/translate_a/single"
+
+folder_path <- "01_data/inital_raw_database_downloads/"
+
+
+cleanup_text_encoding <- function(text) {
+  
+  text <- as.character(text)
+  
+  text %>%
+    
+    stri_enc_toutf8() %>%
+    
+    gsub(pattern = "<[^>]+>", replacement = "", x = .) %>%
+    
+    stri_replace_all_regex("A{1,4}[\u00A0-\u00BF\u2000-\u206F\u2070-\u209F\u20A0-\u20CF\u2100-\u214F]+", "") %>%
+    stri_replace_all_regex("A{2,}[0-9\\W]+", "") %>%
+    stri_replace_all_regex("[A-Za-z]?\x2F[0-9]|I1\x2F4", "u") %>% 
+    
+    stri_replace_all_regex("([a-z])as\\b", "$1's") %>%
+    stri_replace_all_regex("([a-z])a([A-Z])", "$1 $2") %>%
+    
+    stri_replace_all_regex("^(.{10,})\\1+$", "$1") %>%
+    
+    stri_trans_nfkc() %>%
+    stri_trans_general(id = "Latin-ASCII") %>%
+    
+    stri_replace_all_regex("[\x22\x27`“”‘’()\\[\\]\\{\\}]", "") %>%
+    
+    stri_replace_all_regex("[^a-zA-Z0-9\\s.,!?:;\\-]", "") %>%
+    stri_replace_all_regex("\\s+", " ") %>%
+    trimws() %>%
+    enc2utf8()
+}
+```
+
+
+```{r}
+
+if (file.exists(here::here(folder_path, "prisma_df.csv"))) {
+  
+   prisma_df <- read.csv(here::here(folder_path, "prisma_df.csv"), row.names=1)
+   
+  } else {
+    
+   prisma_df <- data.frame(
+      step = c("initial_download", "selected_works", "no_title", 
+               "selected_works_w_all_titles", "unique_titles", 
+               "originally_english_titles", "originally_non_english_titles", 
+               "originally_english_abstracts", "originally_non_english_abstracts", 
+               "n_possible_duplicates", "duplicates_removed", "final_cleaned", 
+               "percent_unique"),
+      Scopus = NA,
+      WoS = NA,
+      OpenAlex = NA
+    ) %>%
+      `rownames<-`(.$step)
+       
+  }
+
+```
+
+
+
+# Scopus
+
+```{r, eval = FALSE}
+raw_scopus <- read.csv(here(paste0(folder_path, "/Scopus"),
+                           "raw_full_scopus_export.csv"))
+unique(raw_scopus$type)
+```
+
+```{r, fig.width=8, fig.height=12, eval = FALSE}
+
+raw_scopus %>%
+  group_by(publication_year) %>%
+  summarize(n_works = n()) %>%
+  arrange(desc(publication_year)) 
+
+raw_scopus %>%
+  group_by(publication_year) %>%
+  summarize(n_works = n()) %>%
+  arrange(publication_year) %>%
+  mutate(publication_year = as.factor(publication_year)) %>%
+  ggplot(aes(x = publication_year, y = n_works))+
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    coord_flip()
+```
+
+```{r, eval = FALSE}
+raw_scopus %>%
+  group_by(type) %>%
+  summarize(n_works = n()) %>%
+  arrange(n_works)
+
+raw_scopus %>%
+  group_by(type) %>%
+  summarize(n_works = n()) %>%
+  arrange(n_works) %>%
+  ggplot(aes(x = type, y = n_works))+
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    coord_flip()
+```
+
+
+
+
+```{r, eval = FALSE}
+scopus_selected_works <- read.csv(here(paste0(folder_path, "Scopus"),
+                                       "raw_full_scopus_export.csv")) %>%
+  { prisma_df["initial_download", "Scopus"] <<- nrow(.); . } %>%
+  filter(type %in% c("Article", "Book Chapter", 
+                     "Review", "Report", "Data Paper")) %>%
+  { prisma_df["selected_works", "Scopus"] <<- nrow(.); . }
+
+scopus_selected_works %>%
+  filter(is.na(title) | title == "") %>%
+  { prisma_df["no_title", "Scopus"] <<- nrow(.); . } %>%
+  write.csv(., here(paste0(folder_path, "/Scopus"), "scopus_export_notitle.csv")) 
+
+
+cleaned_scopus_noabs <- scopus_selected_works %>%
+  filter(!is.na(title) & title != "") %>%
+  rbind(., dplyr::select(read.csv(here(paste0(folder_path, "/Scopus"),
+                                       "scopus_export_notitle_added.csv")), -X)) %>%
+  filter(type %in% c("Article", "Book Chapter", 
+                     "Review", "Report", "Data Paper")) %>% #in case any were changes during manual data entry
+  { prisma_df["selected_works_w_all_titles", "Scopus"] <<- nrow(.); . } %>%
+  arrange(title)  
+
+write.csv(cleaned_scopus_noabs, here(paste0(folder_path, "/Scopus"), 
+                                  "scopus_export_works_w_all_titles.csv"),
+            row.names = FALSE) 
+
+cleaned_scopus_noabs %>%
+  dplyr::select(title) %>%
+  distinct() %>%
+  { prisma_df["unique_titles", "Scopus"] <<- nrow(.); . } %>%
+  write.csv(., here(paste0(folder_path, "/Scopus"), "scopus_raw_uncleaned_titles.csv"),
+            row.names = FALSE)
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+```
+
+
+
+
+
+```{r, eval=FALSE}
+
+scopus_raw_uncleaned_titles <- read.csv(here(paste0(folder_path, "/Scopus"), "scopus_raw_uncleaned_titles.csv"))  %>%
+  mutate(
+        tidy_original_title = cleanup_text_encoding(title),
+        language = cld2::detect_language(tidy_original_title)) %>%
+  mutate(english_title = if_else(language == "en", tidy_original_title, NA))
+
+
+scopus_raw_english_titles <- scopus_raw_uncleaned_titles %>%
+   filter(language ==  "en") %>%
+  { prisma_df["originally_english_titles", "Scopus"] <<- nrow(.); . }
+
+scopus_raw_nonenglish_titles <- scopus_raw_uncleaned_titles %>%
+   filter(language !=  "en" | is.na(language)) %>%
+  { prisma_df["originally_non_english_titles", "Scopus"] <<- nrow(.); . } %>%
+  mutate(english_title = google_translate(tidy_original_title, target_language = "en")) %>%
+  mutate(english_title = if_else(is.na(english_title) | english_title == "",
+                                 google_translate(tidy_original_title, target_language = "en"),
+                                 english_title))%>%
+  mutate(english_title = if_else(is.na(english_title) | english_title == "",
+                                 google_translate(title, target_language = "en"),
+                                 english_title)) %>%
+  mutate(english_title = if_else(nchar(english_title) <= 5,
+                                 google_translate(title, target_language = "en"),
+                                 english_title))
+
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+
+scopus_translated_titles <- rbind(scopus_raw_english_titles,
+                               scopus_raw_nonenglish_titles)
+
+write.csv(scopus_translated_titles,
+          file = here(paste0(folder_path, "/Scopus"),
+                      "scopus_export_translated_titles.csv"),
+          row.names = FALSE)
+
+nrow(scopus_translated_titles) == nrow(scopus_raw_uncleaned_titles)
+
+
+check_scopus_translations <- scopus_translated_titles %>%
+   filter(is.na(english_title)| english_title == "")
+
+
+scopus_export_en <- read.csv(here(paste0(folder_path, "/Scopus"), 
+                                  "scopus_export_works_w_all_titles.csv")) %>%
+  left_join(dplyr::select(scopus_translated_titles, c(title, english_title)), 
+            by = "title")
+
+write.csv(scopus_export_en,
+          file = here(paste0(folder_path, "/Scopus"),
+                      "scopus_export_en.csv"),
+          row.names = FALSE)
+```
+
+
+
+
+```{r, eval = FALSE}
+
+scopus_export_en <- read.csv(here(paste0(folder_path, "/Scopus"), 
+                                           "scopus_export_en.csv"))
+scopus_export_en %>%
+   filter(is.na(english_title)| english_title == "")
+
+scopus_export_wkey <- scopus_export_en %>%
+  mutate(english_title_key = english_title %>%
+           str_to_lower() %>%
+           str_remove_all("<[^>]+>") %>%
+           str_remove_all("[^a-z0-9]") %>%
+           str_remove_all("\\s"),
+         first_author = authorships)
+  
+ 
+duplicate_keys <- scopus_export_wkey %>%
+  group_by(english_title_key) %>%
+  count() %>%
+  filter(n > 1) %>%
+  mutate(id_to_keep = NA)
+
+single_records_keys <- scopus_export_wkey %>%
+  group_by(english_title_key) %>%
+  count() %>%
+  filter(n == 1) 
+
+for(i in 1:nrow(duplicate_keys)){
+  
+  xx_dup <- scopus_export_wkey %>%
+    filter(english_title_key == duplicate_keys$english_title_key[i])
+  
+  xx_distinct <- xx_dup %>%
+    dplyr::select(first_author) %>%
+    filter(!is.na(first_author)) %>%
+    distinct()
+  
+  if(nrow(xx_distinct) == 1){
+    duplicate_keys$id_to_keep[i] <- xx_dup$id[1]
+  } else {
+    next
+  }
+  
+}
+
+duplicate_keys_duplicate_citations <- duplicate_keys %>%
+  filter(!is.na(id_to_keep))
+
+duplicate_keys_NOT_duplicate_citations <- duplicate_keys %>%
+  filter(is.na(id_to_keep))
+
+
+scopus_duplicates <- scopus_export_wkey %>%
+  filter(english_title_key %in% duplicate_keys$english_title_key) %>%
+  { prisma_df["n_possible_duplicates", "Scopus"] <<- nrow(.); . } 
+
+
+
+scopus_single_records <- scopus_export_wkey %>%
+  filter(english_title_key %in% single_records_keys$english_title_key |
+         english_title_key %in% duplicate_keys_NOT_duplicate_citations | 
+         (id %in% duplicate_keys_duplicate_citations$id_to_keep)) %>%
+  { prisma_df["duplicates_removed", "Scopus"] <<- (nrow(scopus_export_wkey) - nrow(.)); . } %>%
+  { prisma_df["final_cleaned", "Scopus"] <<- nrow(.); . } 
+
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+write.csv(scopus_single_records, here(paste0(folder_path, "/Scopus"), "scopus_export_nodups.csv"),
+          row.names = FALSE)
+write.csv(scopus_single_records, here(folder_path, "scopus_final_cleaned.csv"),
+          row.names = FALSE)
+```
+
+# Web of Science
+
+```{r, eval = FALSE}
+raw_wos <- read.csv(here(paste0(folder_path, "/Web_of_Science"),
+                           "raw_full_wos_export.csv"))
+
+unique(raw_wos$type)
+```
+
+
+```{r, fig.width=12, fig.height=8, eval = FALSE}
+
+raw_wos %>%
+  group_by(type) %>%
+  summarize(n_works = n()) %>%
+  arrange(n_works)
+
+raw_wos %>%
+  group_by(type) %>%
+  summarize(n_works = n()) %>%
+  arrange(n_works) %>%
+  ggplot(aes(x = type, y = n_works))+
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    coord_flip()
+```
+
+```{r, fig.width=8, fig.height=12, eval = FALSE}
+
+raw_wos %>%
+  group_by(publication_year) %>%
+  summarize(n_works = n()) %>%
+  arrange(publication_year) 
+
+raw_wos %>%
+  group_by(publication_year) %>%
+  summarize(n_works = n()) %>%
+  arrange(publication_year) %>%
+  mutate(publication_year = as.factor(publication_year)) %>%
+  ggplot(aes(x = publication_year, y = n_works))+
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    coord_flip()
+```
+
+
+```{r, eval = FALSE}
+wos_selected_works <- read.csv(here(paste0(folder_path, "Web_of_Science"),
+                                       "raw_full_wos_export.csv")) %>%
+  { prisma_df["initial_download", "WoS"] <<- nrow(.); . } %>%
+  filter(type %in% c("Article", "Review", "Article; Data Paper", "Book Chapter", 
+                     "Article; Book", "Article; Data Paper; Early Access",
+                     "Article; Early Access", "Review; Early Access")) %>%
+  { prisma_df["selected_works", "WoS"] <<- nrow(.); . }
+
+wos_selected_works %>%
+  filter(is.na(title) | title == "") %>%
+  { prisma_df["no_title", "WoS"] <<- nrow(.); . } %>%
+  write.csv(., here(paste0(folder_path, "/Web_of_Science"), "wos_export_notitle.csv"),
+            row.names = FALSE) 
+
+
+cleaned_wos_noabs <- wos_selected_works %>%
+  filter(!is.na(title) & title != "") %>%
+  { prisma_df["selected_works_w_all_titles", "WoS"] <<- nrow(.); . } %>%
+  arrange(title)  
+
+write.csv(cleaned_wos_noabs, here(paste0(folder_path, "/Web_of_Science"), 
+                                  "wos_export_works_w_all_titles.csv"),
+            row.names = FALSE) 
+
+
+cleaned_wos_noabs %>%
+  dplyr::select(title) %>%
+  distinct() %>%
+  { prisma_df["unique_titles", "WoS"] <<- nrow(.); . } %>%
+  write.csv(., here(paste0(folder_path, "/Web_of_Science"), "wos_raw_uncleaned_titles.csv"),
+            row.names = FALSE)
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+```
+
+
+
+```{r, eval=FALSE}
+
+wos_raw_uncleaned_titles <- read.csv(here(paste0(folder_path, "/Web_of_Science"), "wos_raw_uncleaned_titles.csv"))  %>%
+  mutate(
+        tidy_original_title = cleanup_text_encoding(title),
+        language = cld2::detect_language(tidy_original_title)) %>%
+  mutate(english_title = if_else(language == "en", tidy_original_title, NA))
+
+
+wos_raw_english_titles <- wos_raw_uncleaned_titles %>%
+   filter(language ==  "en") %>%
+  { prisma_df["originally_english_titles", "WoS"] <<- nrow(.); . }
+
+wos_raw_nonenglish_titles <- wos_raw_uncleaned_titles %>%
+   filter(language !=  "en" | is.na(language)) %>%
+  { prisma_df["originally_non_english_titles", "WoS"] <<- nrow(.); . } %>%
+  mutate(english_title = google_translate(tidy_original_title, target_language = "en")) %>%
+  mutate(english_title = if_else(is.na(english_title) | english_title == "",
+                                 google_translate(tidy_original_title, target_language = "en"),
+                                 english_title))%>%
+  mutate(english_title = if_else(is.na(english_title) | english_title == "",
+                                 google_translate(title, target_language = "en"),
+                                 english_title)) %>%
+  mutate(english_title = if_else(nchar(english_title) <= 5,
+                                 google_translate(title, target_language = "en"),
+                                 english_title)) 
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+
+wos_translated_titles <- rbind(wos_raw_english_titles,
+                               wos_raw_nonenglish_titles)
+
+write.csv(wos_translated_titles,
+          file = here(paste0(folder_path, "/Web_of_Science"),
+                      "wos_export_translated_titles.csv"),
+          row.names = FALSE)
+
+nrow(wos_translated_titles) == nrow(wos_raw_uncleaned_titles)
+
+
+check_wos_translations <- wos_translated_titles %>%
+   filter(is.na(english_title)| english_title == "")
+
+
+wos_export_en <- read.csv(here(paste0(folder_path, "/Web_of_Science"), 
+                                  "wos_export_works_w_all_titles.csv")) %>%
+  left_join(dplyr::select(wos_translated_titles, c(title, english_title)), 
+            by = "title")
+
+write.csv(wos_export_en,
+          file = here(paste0(folder_path, "/Web_of_Science"),
+                      "wos_export_en.csv"),
+          row.names = FALSE)
+```
+
+
+
+
+```{r, eval = FALSE}
+
+wos_export_en <- read.csv(here(paste0(folder_path, "/Web_of_Science"), 
+                                           "wos_export_en.csv"))
+wos_export_en %>%
+   filter(is.na(english_title)| english_title == "")
+
+wos_export_wkey <- wos_export_en %>%
+  mutate(english_title_key = english_title %>%
+           str_to_lower() %>%
+           str_remove_all("<[^>]+>") %>%
+           str_remove_all("[^a-z0-9]") %>%
+           str_remove_all("\\s")
+  )  %>%
+  tidyr::separate(col = authorships, into = c("first_author"), 
+                  sep = ";", remove = FALSE)
+  
+ 
+duplicate_keys <- wos_export_wkey %>%
+  group_by(english_title_key) %>%
+  count() %>%
+  filter(n > 1) %>%
+  mutate(id_to_keep = NA)
+
+single_records_keys <- wos_export_wkey %>%
+  group_by(english_title_key) %>%
+  count() %>%
+  filter(n == 1) 
+
+for(i in 1:nrow(duplicate_keys)){
+  
+  xx_dup <- wos_export_wkey %>%
+    filter(english_title_key == duplicate_keys$english_title_key[i])
+  
+  xx_distinct <- xx_dup %>%
+    dplyr::select(first_author) %>%
+    filter(!is.na(first_author)) %>%
+    distinct()
+  
+  if(nrow(xx_distinct) == 1){
+    duplicate_keys$id_to_keep[i] <- xx_dup$id[1]
+  } else {
+    next
+  }
+  
+}
+
+duplicate_keys_duplicate_citations <- duplicate_keys %>%
+  filter(!is.na(id_to_keep))
+
+duplicate_keys_NOT_duplicate_citations <- duplicate_keys %>%
+  filter(is.na(id_to_keep))
+
+
+wos_duplicates <- wos_export_wkey %>%
+  filter(english_title_key %in% duplicate_keys$english_title_key) %>%
+  { prisma_df["n_possible_duplicates", "WoS"] <<- nrow(.); . } 
+
+
+
+wos_single_records <- wos_export_wkey %>%
+  filter(english_title_key %in% single_records_keys$english_title_key |
+         english_title_key %in% duplicate_keys_NOT_duplicate_citations | 
+         (id %in% duplicate_keys_duplicate_citations$id_to_keep)) %>%
+  { prisma_df["duplicates_removed", "WoS"] <<- (nrow(wos_export_wkey) - nrow(.)); . } %>%
+  { prisma_df["final_cleaned", "WoS"] <<- nrow(.); . } 
+
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+write.csv(wos_single_records, here(paste0(folder_path, "/Web_of_Science"), "wos_export_nodups.csv"),
+          row.names = FALSE)
+write.csv(wos_single_records, here(folder_path, "wos_export_nodups.csv"),
+          row.names = FALSE)
+```
+
+
+
+
+# OpenAlex
+
+
+```{r, eval = FALSE}
+raw_openalex <- read.csv(here(paste0(folder_path, "/OpenAlex"),
+                           "raw_full_openalex_export.csv"))
+unique(raw_openalex$type)
+```
+
+
+
+```{r, fig.width=8, fig.height=12, eval = FALSE}
+
+raw_openalex %>%
+  group_by(publication_year) %>%
+  summarize(n_works = n()) %>%
+  arrange(desc(publication_year)) 
+
+raw_openalex %>%
+  group_by(publication_year) %>%
+  summarize(n_works = n()) %>%
+  arrange(publication_year) %>%
+  mutate(publication_year = as.factor(publication_year)) %>%
+  ggplot(aes(x = publication_year, y = n_works))+
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    coord_flip()
+```
+
+```{r, eval = FALSE}
+raw_openalex %>%
+  group_by(type) %>%
+  summarize(n_works = n()) %>%
+  arrange(n_works)
+
+raw_openalex %>%
+  group_by(type) %>%
+  summarize(n_works = n()) %>%
+  arrange(n_works) %>%
+  ggplot(aes(x = type, y = n_works))+
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    coord_flip()
+```
+
+```{r, eval = FALSE}
+
+openalex_selected_works <- read.csv(here(paste0(folder_path, "/OpenAlex"), 
+                                         "raw_full_openalex_export.csv")) %>%
+  { prisma_df["initial_download", "OpenAlex"] <<- nrow(.); . } %>%
+  filter(type %in% c("article", "book-chapter", "review", "report", "data-paper")) %>%
+  { prisma_df["selected_works", "OpenAlex"] <<- nrow(.); . }
+
+openalex_selected_works %>%
+  filter(is.na(title) | title == "") %>%
+  { prisma_df["no_title", "OpenAlex"] <<- nrow(.); . } %>%
+  write.csv(., here(paste0(folder_path, "/OpenAlex"), "openalex_export_notitle.csv"))
+
+
+cleaned_openalex_noabs <- openalex_selected_works %>%
+  filter(!is.na(title) & title != "") %>%
+  dplyr::select(-english_title, -tidy_title, -english_abstract, -tidy_abstract) %>%
+  rbind(., dplyr::select(read.csv(here(paste0(folder_path, "OpenAlex"),
+                                       "openalex_export_notitle_added.csv")), -X)) %>%
+  filter(type %in% c("article", "book-chapter", "review", "report", 
+                     "data-paper")) %>% #in case any were changes during manual data entry
+  { prisma_df["selected_works_w_all_titles", "OpenAlex"] <<- nrow(.); . } %>%
+  arrange(title)  
+
+
+write.csv(cleaned_openalex_noabs, here(paste0(folder_path, "/OpenAlex"), 
+                                  "openalex_export_works_w_all_titles.csv"),
+            row.names = FALSE) 
+
+
+
+cleaned_openalex_noabs %>%
+  dplyr::select(title) %>%
+  distinct() %>%
+  { prisma_df["unique_titles", "OpenAlex"] <<- nrow(.); . } %>%
+  write.csv(., here(paste0(folder_path, "/OpenAlex"), "openalex_raw_uncleaned_titles.csv"),
+            row.names = FALSE)
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+  
+```
+
+
+
+```{r, eval=FALSE}
+
+openalex_raw_uncleaned_titles <- read.csv(here(paste0(folder_path, "/OpenAlex"), "openalex_raw_uncleaned_titles.csv"))  %>%
+  mutate(
+        tidy_original_title = cleanup_text_encoding(title),
+        language = cld2::detect_language(tidy_original_title)) %>%
+  mutate(english_title = if_else(language == "en", tidy_original_title, NA))
+
+
+openalex_raw_english_titles <- openalex_raw_uncleaned_titles %>%
+   filter(language ==  "en") %>%
+  { prisma_df["originally_english_titles", "OpenAlex"] <<- nrow(.); . }
+
+openalex_raw_nonenglish_titles <- openalex_raw_uncleaned_titles %>%
+   filter(language !=  "en" | is.na(language)) %>%
+  { prisma_df["originally_non_english_titles", "OpenAlex"] <<- nrow(.); . } %>%
+  mutate(english_title = google_translate(tidy_original_title, target_language = "en")) %>%
+  mutate(english_title = if_else(is.na(english_title) | english_title == "",
+                                 google_translate(tidy_original_title, target_language = "en"),
+                                 english_title))%>%
+  mutate(english_title = if_else(is.na(english_title) | english_title == "",
+                                 google_translate(title, target_language = "en"),
+                                 english_title)) %>%
+  mutate(english_title = if_else(nchar(english_title) <= 5,
+                                 google_translate(title, target_language = "en"),
+                                 english_title)) 
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+
+openalex_translated_titles <- rbind(openalex_raw_english_titles,
+                               openalex_raw_nonenglish_titles)
+
+write.csv(openalex_translated_titles,
+          file = here(paste0(folder_path, "/OpenAlex"),
+                      "openalex_export_translated_titles.csv"),
+          row.names = FALSE)
+
+nrow(openalex_translated_titles) == nrow(openalex_raw_uncleaned_titles)
+
+
+check_openalex_translations <- openalex_translated_titles %>%
+   filter(is.na(english_title)| english_title == "")
+
+
+openalex_export_en <- read.csv(here(paste0(folder_path, "/OpenAlex"), 
+                                  "openalex_export_works_w_all_titles.csv")) %>%
+  left_join(dplyr::select(openalex_translated_titles, c(title, english_title)), 
+            by = "title")
+
+write.csv(openalex_export_en,
+          file = here(paste0(folder_path, "/OpenAlex"),
+                      "openalex_export_en.csv"),
+          row.names = FALSE)
+```
+
+
+
+
+```{r, eval = FALSE}
+
+openalex_export_en <- read.csv(here(paste0(folder_path, "/OpenAlex"), 
+                                           "openalex_export_en.csv"))
+openalex_export_en %>%
+   filter(is.na(english_title)| english_title == "")
+
+openalex_export_wkey <- openalex_export_en %>%
+  mutate(english_title_key = english_title %>%
+           str_to_lower() %>%
+           str_remove_all("<[^>]+>") %>%
+           str_remove_all("[^a-z0-9]") %>%
+           str_remove_all("\\s"),
+         authorships_cleaned = authorships %>%
+           str_replace_all("<p>|<sup>", "") %>%
+           str_replace_all("</p>|</sup>", ";") %>%
+           str_remove_all("(?i)\\b(PhD|Dr|Prof)\\b|\\(\\s*\\)") %>%
+           str_remove_all("[¹²³⁴⁵⁶⁷⁸⁹⁰0-9■*#\\\\$|<>():⎜│⎟⎪⎮⎩\t\\p{So}\\p{Sm}]") %>%
+           str_replace_all("^[[:punct:]\\s\\p{So}\\p{Sm}]+|[[:punct:]\\s\\p{So}\\p{Sm}]+$", "") %>%
+           str_squish())  %>%
+  tidyr::separate(col = authorships_cleaned, into = c("first_author"), sep = ";")
+  
+ 
+duplicate_keys <- openalex_export_wkey %>%
+  group_by(english_title_key) %>%
+  count() %>%
+  filter(n > 1) %>%
+  mutate(id_to_keep = NA)
+
+single_records_keys <- openalex_export_wkey %>%
+  group_by(english_title_key) %>%
+  count() %>%
+  filter(n == 1) 
+
+for(i in 1:nrow(duplicate_keys)){
+  
+  xx_dup <- openalex_export_wkey %>%
+    filter(english_title_key == duplicate_keys$english_title_key[i])
+  
+  xx_distinct <- xx_dup %>%
+    dplyr::select(first_author) %>%
+    filter(!is.na(first_author)) %>%
+    distinct()
+  
+  if(nrow(xx_distinct) == 1){
+    duplicate_keys$id_to_keep[i] <- xx_dup$id[1]
+  } else {
+    next
+  }
+  
+}
+
+duplicate_keys_duplicate_citations <- duplicate_keys %>%
+  filter(!is.na(id_to_keep))
+
+duplicate_keys_NOT_duplicate_citations <- duplicate_keys %>%
+  filter(is.na(id_to_keep))
+
+
+openalex_duplicates <- openalex_export_wkey %>%
+  filter(english_title_key %in% duplicate_keys$english_title_key) %>%
+  { prisma_df["n_possible_duplicates", "OpenAlex"] <<- nrow(.); . } 
+
+
+
+openalex_single_records <- openalex_export_wkey %>%
+  filter(english_title_key %in% single_records_keys$english_title_key |
+         english_title_key %in% duplicate_keys_NOT_duplicate_citations | 
+         (id %in% duplicate_keys_duplicate_citations$id_to_keep)) %>%
+  { prisma_df["duplicates_removed", "OpenAlex"] <<- (nrow(openalex_export_wkey) - nrow(.)); . } %>%
+  { prisma_df["final_cleaned", "OpenAlex"] <<- nrow(.); . } 
+
+
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+write.csv(openalex_single_records, here(paste0(folder_path, "/OpenAlex"), "openalex_export_nodups.csv"),
+          row.names = FALSE)
+write.csv(openalex_single_records, here(folder_path, "openalex_final_cleaned.csv"),
+          row.names = FALSE)
+```
+
+
+
+# Combining Databases
+
+
+```{r, eval=FALSE}
+scopus_final_cleaned <- read.csv(here(folder_path, "scopus_final_cleaned.csv")) %>%
+  mutate(database = "Scopus") %>%
+  tidyr::separate(col = first_author, into = c("family", "given"), sep=" ") %>%
+  mutate(family_cleaned = family %>%
+           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>%
+           str_to_title() %>%
+           str_replace_all(regex("\\W+"), ""),
+         given_initial = substring(given, 1, 1)%>%
+           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>%
+           str_to_title(),
+         first_author_cleaned = if_else(is.na(authorships), NA,
+                                        paste0(family_cleaned, " ", given_initial, ".")))
+
+wos_final_cleaned <- read.csv(here(folder_path, "wos_final_cleaned.csv")) %>%
+  mutate(database = "Web of Science") %>%
+  tidyr::separate(col = first_author, into = c("family", "given"), sep=" ") %>%
+  mutate(family_cleaned = family %>%
+           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>%
+           str_to_title() %>%
+           str_replace_all(regex("\\W+"), ""),
+         given_initial = substring(given, 1, 1)%>%
+           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>%
+           str_to_title(),
+         first_author_cleaned = if_else(is.na(authorships), NA,
+                                        paste0(family_cleaned, " ", given_initial, ".")),
+        title = case_when(
+             doi =="10.5943/mycosphere/13/1/6" ~ "Ten important forest fungal pathogens: a review on their emergence and biology",
+             TRUE ~ title),
+         english_title = case_when(
+             doi =="10.5943/mycosphere/13/1/6" ~ "Ten important forest fungal pathogens: a review on their emergence and biology",
+             TRUE ~ english_title),
+          english_title_key = english_title %>%
+             str_to_lower() %>%
+             str_remove_all("<[^>]+>") %>%
+             str_remove_all("[^a-z0-9]") %>%
+             str_remove_all("\\s")
+        )
+
+openalex_final_cleaned_w_abstracts <- read.csv(here(folder_path, "openalex_final_cleaned.csv")) %>%
+  mutate(
+    database = "OpenAlex",
+    first_author = str_replace(first_author, "^[[:punct:]\\s]+", ""),
+    family = case_when(
+        str_detect(first_author, ",") ~ str_extract(first_author, "^[^,]+"), 
+        TRUE ~ str_extract(first_author, "\\S+$")
+      ) %>% 
+        str_replace("[[:punct:]\\s]+$", ""),
+    given = case_when(
+        str_detect(first_author, ",") ~ str_replace(first_author, "^[^,]+,\\s*", ""), 
+        str_detect(first_author, "\\s") ~ str_remove(first_author, "\\s+\\S+$"),
+        TRUE ~ NA
+      ) %>% 
+        str_replace("[[:punct:]\\s]+$", "")
+    ) %>%
+  mutate(family_cleaned = family %>%
+           str_replace("[[:punct:]\\s]+$", "") %>%
+           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>%
+           str_to_title() %>%
+           str_replace_all(regex("\\W+"), ""),
+         given_initial = str_replace(given, "[[:punct:]\\s]+$", "") %>%
+           substring(., 1, 1) %>%
+           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>%
+           str_to_title(),
+         first_author_cleaned = if_else(is.na(authorships), NA,
+            str_trim(paste0(coalesce(family_cleaned, ""), 
+              if_else(!is.na(given_initial) & given_initial != "", paste0(" ", given_initial, "."), "")
+            )))
+  ) %>%
+  dplyr::select(-first_author)
+  
+ 
+full_uncollapsed_lookup <- scopus_final_cleaned %>%
+  bind_rows(wos_final_cleaned, openalex_final_cleaned_w_abstracts) %>%
+  mutate(english_title_standardized = english_title %>%
+            stri_trans_general(id = "Any-Latin; Latin-ASCII") %>% #latin characters 
+            str_to_sentence() %>% #sentance case to standardize
+            stri_replace_all_regex("[^a-zA-Z0-9\\s.,!?:;\\-]", "") %>% #only keeps a-z, A-Z, 0-9, whitespace (spaces, tabs, newlines), .,!?:;:-
+            str_replace_all("([:?.,;-])(?:\\s+\\1)+", "\\1") %>% #spaced out repeats
+            str_replace_all("([:?.,;-])\\1+", "\\1") %>% #removes repeated punctuation
+            str_replace_all("([:?.,;-])[/:?.,;-]+", "\\1") %>% #removed mixed punctuation
+            str_replace_all("\\s+-\\s+", " ") %>% #removes spaces around hyphens
+            str_replace_all("\\s+([;:])", "\\1") %>% #removes whitespace before ; or :
+            str_replace_all("^[/:?.,;\\-\\s]+", "") %>% #removes leading punctuation (with their spaces)
+            str_replace_all("\\s{2,}", " ") %>% #any double spaces are gone
+            str_trim() %>% #trailing whitespace
+            str_replace_all("[[:punct:]\\s]+$", ""), #trailing punctuation
+        doi = str_to_lower(gsub("^https?://(dx\\.)?doi\\.org/", "", doi))
+      ) 
+
+no_title_key <- full_uncollapsed_lookup %>%
+  filter(english_title_key == "" | is.na(english_title_key))
+
+no_authors <- full_uncollapsed_lookup %>%
+  filter(is.na(authorships))
+
+write.csv(full_uncollapsed_lookup, here(folder_path, "combined_uncollapsed_lookup.csv"),
+          row.names = FALSE)
+```
+
+
+```{r, eval = FALSE}
+full_uncollapsed_lookup <- read.csv(here(folder_path, "combined_uncollapsed_lookup.csv"))
+
+
+work_ids <- full_uncollapsed_lookup %>%
+  dplyr::select(doi, database, english_title_key) %>%
+  distinct() %>%
+  mutate(present = TRUE) %>%
+  group_by(doi, english_title_key) %>%
+  tidyr::pivot_wider(names_from = database, values_from = present) %>%
+  rename(WoS = 'Web of Science') %>%
+  mutate(unique_for = case_when(
+    is.na(Scopus) & is.na(WoS) & !is.na(OpenAlex) ~ "OpenAlex",
+    is.na(Scopus) & !is.na(WoS) & is.na(OpenAlex) ~ "WoS",
+    !is.na(Scopus) & is.na(WoS) & is.na(OpenAlex) ~ "Scopus",
+    TRUE ~ "shared"
+  )) %>%
+  tibble::rownames_to_column("id") %>%
+  mutate(id = paste0("id_", str_pad(id, 7, pad = "0")))
+  
+
+prisma_df["number_unique", "step"] <- "number_unique"
+
+prisma_df["number_unique", "OpenAlex"] <- work_ids %>%
+  filter(unique_for == "OpenAlex") %>%
+  nrow(.) 
+  
+prisma_df["number_unique", "Scopus"] <- work_ids %>%
+  filter(unique_for == "Scopus") %>%
+  nrow(.)
+  
+  
+prisma_df["number_unique", "WoS"] <- work_ids %>%
+  filter(unique_for == "WoS") %>%
+  nrow(.) 
+
+
+prisma_df["percent_unique", "WoS"] <- round((prisma_df["number_unique", "WoS"] / 
+  prisma_df["final_cleaned", "WoS"] )*100, 1)
+
+prisma_df["percent_unique", "Scopus"] <- round((prisma_df["number_unique", "Scopus"] / 
+  prisma_df["final_cleaned", "Scopus"] )*100, 1)
+
+prisma_df["percent_unique", "OpenAlex"] <- round((prisma_df["number_unique", "OpenAlex"] / 
+  prisma_df["final_cleaned", "OpenAlex"] )*100, 1)
+
+
+prisma_df["database_proportion", "step"] <- "database_proportion"
+
+prisma_df["database_proportion", "WoS"] <- round(prisma_df["final_cleaned", "WoS"] /
+  sum(prisma_df["final_cleaned", "Scopus"], prisma_df["final_cleaned", "WoS"], prisma_df["final_cleaned", "OpenAlex"]), 2)
+
+prisma_df["database_proportion", "Scopus"] <- round(prisma_df["final_cleaned", "Scopus"] /
+  sum(prisma_df["final_cleaned", "Scopus"], prisma_df["final_cleaned", "WoS"], prisma_df["final_cleaned", "OpenAlex"]), 2)
+
+prisma_df["database_proportion", "OpenAlex"] <- round(prisma_df["final_cleaned", "OpenAlex"] /
+  sum(prisma_df["final_cleaned", "Scopus"], prisma_df["final_cleaned", "WoS"], prisma_df["final_cleaned", "OpenAlex"]), 2)
+
+options(scipen=999)
+write.csv(prisma_df, here::here(folder_path, "prisma_df.csv"),
+          row.names = TRUE)
+
+write.csv(work_ids, here(folder_path, "collapsed_with_official_IDs_no_abstracts.csv"),
+          row.names = FALSE)
+```
+
+## combining abstracts
+
+```{r, eval = FALSE}
+
+if(file.exists(here::here(folder_path, "full_lookup_w_abstracts.csv"))) {
+  
+   full_uncollapsed_lookup <- read.csv(here(folder_path, "full_lookup_w_abstracts.csv"))
+   
+} else {
+  
+  full_uncollapsed_lookup_noids <- read.csv(here(folder_path, "combined_uncollapsed_lookup.csv")) 
+  
+  full_uncollapsed_lookup <- full_uncollapsed_lookup_noids %>%
+    mutate(doi = str_to_lower(gsub("^https?://(dx\\.)?doi\\.org/", "", doi))) %>%
+    left_join(dplyr::select(read.csv(here(folder_path, "collapsed_with_official_IDs_no_abstracts.csv")),
+                            c(work_id = id, doi, english_title_key)), 
+              by = c("doi", "english_title_key")) %>%
+                arrange(work_id)
+                        
+   write.csv(full_uncollapsed_lookup, here(folder_path, "full_lookup_w_abstracts.csv"),
+          row.names = FALSE)
+  
+}
+
+combined_collapsed_ids_n_dups  <- full_uncollapsed_lookup %>%
+  dplyr::select(work_id, doi, publication_year, first_author_cleaned,
+                english_title_standardized, english_title_key) %>%
+  distinct() %>%
+  group_by(work_id) %>%
+  summarize(n_dups = n())
+
+ids_single <- filter(combined_collapsed_ids_n_dups, n_dups == 1) %>% 
+           pull(work_id)
+
+ids_multi <- filter(combined_collapsed_ids_n_dups, n_dups > 1) %>% 
+           pull(work_id)
+
+
+combined_collapsed_ids_single <- full_uncollapsed_lookup %>%
+  filter(work_id %in% ids_single) %>%
+  dplyr::select(work_id, doi, publication_year, first_author_cleaned,
+                english_title_standardized, english_title_key) %>%
+  distinct()
+
+
+
+combined_collapsed_ids_multi  <- full_uncollapsed_lookup %>%
+  dplyr::select(work_id, doi) %>%
+  filter(work_id %in% ids_multi) %>%
+  distinct() %>%
+  mutate(publication_year = NA, 
+         first_author_cleaned = NA,,
+         english_title_standardized = NA,
+         english_title_key = NA)
+
+
+
+for(i in 1:nrow(combined_collapsed_ids_multi)){
+  xx <- full_uncollapsed_lookup %>%
+    filter(work_id == combined_collapsed_ids_multi$work_id[i])
+    
+    combined_collapsed_ids_multi$publication_year[i] <- unique(xx$publication_year)
+    
+    combined_collapsed_ids_multi$first_author_cleaned[i] <- filter(xx, !is.na(first_author_cleaned))$first_author_cleaned[1]
+    
+    combined_collapsed_ids_multi$english_title_standardized[i] <- filter(xx, !is.na(english_title_standardized))$english_title_standardized[1]
+    
+    combined_collapsed_ids_multi$english_title_key[i] <- unique(xx$english_title_key)
+}
+
+
+combined_collapsed_ids <- combined_collapsed_ids_single %>%
+  rbind(., combined_collapsed_ids_multi) %>%
+  arrange(work_id)
+
+combined_collapsed_ids %>%
+  filter(is.na(first_author_cleaned))
+
+write.csv(combined_collapsed_ids, here(folder_path, "collapsed_with_official_IDs_full.csv"),
+          row.names = FALSE)
+
+
+
+collapsed_with_official_IDs_w_abstracts <- combined_collapsed_ids %>%
+  arrange(work_id) %>%
+  left_join(dplyr::select(read.csv(here(folder_path, "collapsed_with_official_IDs_no_abstracts.csv")),
+                            c(work_id = id, Scopus, WoS, OpenAlex)), by = "work_id") %>%
+  left_join(full_uncollapsed_lookup %>%
+              dplyr::select(work_id, abstract) %>%
+              filter(!is.na(abstract)) %>%
+              distinct(),
+            by = "work_id")
+
+
+write.csv(collapsed_with_official_IDs_w_abstracts,
+          here(folder_path, "collapsed_with_official_IDs_w_abstracts.csv"),
+          row.names = FALSE)
+
+
+full_uncollapsed_lookup_w_abstracts <- full_uncollapsed_lookup %>%
+  dplyr::select(-abstract) %>%
+  left_join(dplyr::select(collapsed_with_official_IDs_w_abstracts,
+                          c(work_id, abstract)),
+            by = c("work_id")) %>%
+  arrange(work_id)
+
+
+write.csv(full_uncollapsed_lookup_w_abstracts, here(folder_path, "full_lookup_w_abstracts.csv"),
+          row.names = FALSE)
+```
+
+# Abstract scraping 
+
+## prepping for abstract scraping 
+
+
+```{r, eval = FALSE}
+no_abstracts_full_ref <- read.csv(here(folder_path, "full_lookup_w_abstracts.csv")) %>%
+  filter(is.na(abstract))
+
+write.csv(no_abstracts_full_ref, here(folder_path, "no_abstracts_full_ref.csv"),
+          row.names = FALSE)
+
+
+collapsed_no_abstracts <- collapsed_with_official_IDs_w_abstracts %>%
+  filter(is.na(abstract))
+
+
+write.csv(collapsed_no_abstracts, here(folder_path, "no_abstracts_full_collapsed.csv"),
+          row.names = FALSE)
+
+```
+
+
+
+
+```{r, eval = FALSE}
+#will divide up all the remaining no abstract works into files of 5000
+no_abstracts <- read.csv(here(folder_path, "no_abstracts_full_collapsed.csv"))
+
+no_abstracts_dois <- no_abstracts %>%
+  filter(!is.na(doi)) 
+
+for(i in 1:ceiling(nrow(no_abstracts_dois)/5000)) {
+  
+  if(i != ceiling(nrow(no_abstracts_dois)/5000)){
+  row_numbers_i <- c(((5000*i)-4999):(5000 * i))
+  } else {
+    row_numbers_i <- c(((5000*i)-4999):nrow(no_abstracts_dois))
+  }
+  
+  no_abstracts_dois[row_numbers_i,] %>%
+    write.csv(., here(paste0(folder_path, "abstract_scraping/empty"), 
+                      paste0("abstract_scrape_", i, "_empty.csv")), 
+              row.names = FALSE)
+  
+}
+
+
+no_abstracts %>%
+  filter(is.na(doi)) %>%
+  write.csv(., here(paste0(folder_path, "abstract_scraping/still_missing_abstracts"), 
+                      paste0("missing_abstracts_no_doi.csv")), 
+              row.names = FALSE)
+```
+
+
+## adding in abstracts
+
+```{r, eval = FALSE}
+scraped_abstracts_file_names <- list.files(here(paste0(folder_path, "abstract_scraping/filled"), "")) %>%
+  grep(., pattern = "_filled.csv", value = TRUE) %>%
+  gsub("_filled.csv", "", .) 
+  
+
+scraped_abstracts <- data.frame()
+
+for (i in 1:length(scraped_abstracts_file_names)) {
+   scraped_abstracts <- read.csv(here(paste0(folder_path, "abstract_scraping/filled"), 
+                        paste0(scraped_abstracts_file_names[i], "_filled.csv"))) %>%
+     bind_rows(scraped_abstracts)
+}
+
+
+collapsed_with_official_IDs_w_abstracts <- read.csv(here(folder_path, 
+                                                         "collapsed_with_official_IDs_w_abstracts.csv")) %>%
+  filter(!work_id %in% scraped_abstracts$work_id) %>%
+  rbind(., dplyr::select(scraped_abstracts, -source)) %>%
+  arrange(work_id)
+```
+
+## still no abstract
+
+```{r, eval = FALSE}
+still_no_abstracts <- collapsed_with_official_IDs_w_abstracts %>%
+  filter(work_id %in% scraped_abstracts$work_id & is.na(abstract))
+
+
+write.csv(still_no_abstracts, here(paste0(folder_path, "abstract_scraping/still_missing_abstracts"), 
+                      paste0("missing_abstracts.csv")), 
+              row.names = FALSE)
+
+```
+
+
+
+
+
+
+
+
+
+# Manual website scraping
+
+## export scraping strings
+
+```{r, eval = FALSE}
+
+missing_abstracts <- read.csv(here(paste0(folder_path, 
+                                          "abstract_scraping/still_missing_abstracts"), 
+                                   paste0("missing_abstracts.csv")))
+
+dois_to_scrape <- unique(gsub("https://doi.org/", "", missing_abstracts$doi))
+
+tibble(doi = dois_to_scrape) %>%
+  mutate(batch = (row_number() - 1) %/% 1000 + 1) %>%
+  group_by(batch) %>%
+  summarise(
+    doi_count = n(),
+    wos_query = paste0('DO=("', paste(doi, collapse = '" OR "'), '")'),
+    .groups = "drop"
+  ) %>%
+  write.csv(., here(paste0(folder_path, "abstract_scraping/manual_scraping"), 
+                    "wos_strings_to_scrape.csv"), row.names = FALSE)
+
+```
+
+## import manual wos downloads (need to check when i have some files)
+
+```{r, eval = FALSE}
+
+wos_download_file_names <- list.files(here(paste0(folder_path, "abstract_scraping/manual_scraping/wos_downloads"), ""))%>%
+  gsub(".xls", "", .) %>%
+  grep(., pattern = "savedrecs", value = TRUE)
+  
+
+wos_download_full <- data.frame()
+
+for (i in 1:length(wos_download_file_names)) {
+   wos_download_full <- read_excel(here(paste0(folder_path, "abstract_scraping/manual_scraping/wos_downloads"), 
+                        paste0( wos_download_file_names[i], ".xls"))) %>%
+     bind_rows(wos_download_full)
+  }
+
+
+
+wos_download_abstracts <- wos_download_full %>%
+  dplyr::select(doi = DOI, abstract = Abstract) %>%
+  na.omit()
+
+
+for(i in 1:nrow(no_abstracts_batch_i)){
+  
+  if(!is.na(no_abstracts_batch_i[i,"abstract"])) next
+  
+  xx <- wos_download_abstracts %>%
+    filter(doi == no_abstracts_batch_i[i,"doi"])
+  
+  if(nrow(xx) == 0) next
+  
+  no_abstracts_batch_i[i,"abstract"] <- xx$abstract
+  no_abstracts_batch_i[i,"source"] <- "manual wos"
+}
+
+
+```
+
+
+
+
+# graveyard
+
+```{r}
+
+#code graveyard for making the abstracts english and standardized .... if we ever get them
+
+  # #make the abstracts all english
+  # if(cld2::detect_language(abstract_i) == "en" & !is.na(cld2::detect_language(abstract_i))){
+  #   abstract_i_english <- abstract_i
+  # } else {
+  #   abstract_i_english <- google_translate(abstract_i, target_language = "en")
+  # }
+  #   
+  # abstract_i_tidy <- abstract_i_english %>%
+  #           str_remove_all("<[^>]+>") %>% # removes all HTML tags like <h3>, </h3>, <p>, etc.
+  #           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>% #latin characters 
+  #           str_to_sentence() %>% #sentance case to standardize
+  #           str_replace_all("([:?.,;-])(?:\\s+\\1)+", "\\1") %>% #spaced out repeats
+  #           str_replace_all("([:?.,;-])\\1+", "\\1") %>% #removes repeated punctuation
+  #           str_replace_all("([:?.,;-])[/:?.,;-]+", "\\1") %>% #removed mixed punctuation
+  #           str_replace_all("\\s+-\\s+", " ") %>% #removes spaces around hyphens
+  #           str_replace_all("\\s+([;:])", "\\1") %>% #removes whitespace before ; or :
+  #           str_replace_all("^[/:?.,;\\-\\s]+", "") %>% #removes leading punctuation (with their spaces)
+  #           str_replace_all("\\s{2,}", " ") %>% #any double spaces are gone
+  #           str_trim() #trailing whitespace
+  
+  
+  
+#%>%
+  # mutate(abstract_language = cld2::detect_language(abstract),
+  #        abstract_english = if_else(abstract_language == "en", abstract, NA),
+  #        abstract_tidy = abstract_english %>%
+  #           str_remove_all("<[^>]+>") %>% # removes all HTML tags like <h3>, </h3>, <p>, etc.
+  #           stri_trans_general(id = "Any-Latin; Latin-ASCII") %>% #latin characters 
+  #           str_to_sentence() %>% #sentance case to standardize
+  #           str_replace_all("([:?.,;-])(?:\\s+\\1)+", "\\1") %>% #spaced out repeats
+  #           str_replace_all("([:?.,;-])\\1+", "\\1") %>% #removes repeated punctuation
+  #           str_replace_all("([:?.,;-])[/:?.,;-]+", "\\1") %>% #removed mixed punctuation
+  #           str_replace_all("\\s+-\\s+", " ") %>% #removes spaces around hyphens
+  #           str_replace_all("\\s+([;:])", "\\1") %>% #removes whitespace before ; or :
+  #           str_replace_all("^[/:?.,;\\-\\s]+", "") %>% #removes leading punctuation (with their spaces)
+  #           str_replace_all("\\s{2,}", " ") %>% #any double spaces are gone
+  #           str_trim() #trailing whitespace
+  #        )
+
+
+```
+
