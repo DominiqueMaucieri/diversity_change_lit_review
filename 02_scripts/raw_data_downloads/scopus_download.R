@@ -9,9 +9,7 @@ library(purrr)
 library(here)
 library(readr)
 
-
-scopus_api_key <- "REMOVED"
-set_api_key("REMOVED")
+source(here("", "my_keys.R"))
 
 api_headers <- c(
   `X-ELS-APIKey`    = scopus_api_key,

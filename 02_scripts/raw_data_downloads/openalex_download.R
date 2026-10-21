@@ -10,11 +10,7 @@ library(openalexR)
 library(readr)
 library(stringr)
 
-options(openalexR.apikey = "REMOVED")
-
-# to check daily credit usage
-# jsonlite::fromJSON(paste0("https://api.openalex.org/rate-limit?api_key=", "REMOVED"))
-
+source(here("", "my_keys.R"))
 
 # targeted search parameters
 keywords_1 <- "(species OR population OR community OR assemblage OR ecological)"

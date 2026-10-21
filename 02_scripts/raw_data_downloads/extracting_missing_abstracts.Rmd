@@ -49,11 +49,7 @@ library(beepr)
 
 google_api_url <- "https://translate.googleapis.com/translate_a/single"
 
-#API keys
-options(openalexR.apikey = "REMOVED")
-options(crossref_email = "REMOVED")
-elsevier_api_key <- "REMOVED" 
-semantic_scholar_api_key <- "REMOVED"
+source(here("", "my_keys.R"))
 
 ```
 

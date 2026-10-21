@@ -10,8 +10,7 @@ library(synthesisr)
 library(readr)
 
 
-API_KEY <- "REMOVED" 
-
+source(here("", "my_keys.R"))
 
 keywords_1 <- "(species OR population* OR communit* OR assemblage* OR ecological)"
 keywords_2 <- "(richness OR abundan* OR count* OR cover* OR densit* OR biomass* OR diversit* OR composition*)"
@@ -40,11 +39,11 @@ if (file.exists(here("01_data/inital_raw_database_downloads/Web_of_Science",
     
     # Direct inline API check for the year count
     params <- list('db' = 'WOS', 'limit' = 1, 'q' = q_str, 'page' = 1)
-    res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = API_KEY))
+    res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = WOS_API_KEY))
     
     if (status_code(res) == 429) {
       Sys.sleep(30)
-      res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = API_KEY))
+      res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = WOS_API_KEY))
     }
     
     clean_count <- 0
@@ -90,7 +89,7 @@ for (yr in years_to_process) {
   
   q_str <- sprintf("PY=%d AND %s", yr, TS_BLOCK)
   params <- list('db' = 'WOS', 'limit' = 1, 'q' = q_str, 'page' = 1)
-  res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = API_KEY))
+  res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = WOS_API_KEY))
   content_json <- fromJSON(content(res, as = "text", encoding = "UTF-8"), flatten = TRUE)
   clean_count <- as.numeric(content_json$metadata$total)
   ledger$expected_count[ledger$year == yr] <- clean_count
@@ -126,7 +125,7 @@ for (yr in years_to_process) {
       params <- list('db' = 'WOS', 'limit' = 50, 'q' = q_str, 'page' = 1)
       
       res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", 
-                 query = params, add_headers('X-ApiKey' = API_KEY))
+                 query = params, add_headers('X-ApiKey' = WOS_API_KEY))
       
       if (status_code(res) == 429) {
         stop(" API Rate Limit (429) encountered on initial request. Stopping script execution for the day.")
@@ -147,7 +146,7 @@ for (yr in years_to_process) {
           while (page_num <= reqs_needed) {
             cat(sprintf("   Downloading page %d of %d...\n", page_num, reqs_needed))
             params$page <- page_num
-            page_res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = API_KEY))
+            page_res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = WOS_API_KEY))
             
             if (status_code(page_res) == 429) {
               stop(" API Rate Limit (429) encountered during pagination. Stopping script execution for the day.")
@@ -187,7 +186,7 @@ for (yr in years_to_process) {
       params <- list('db' = 'WOS', 'limit' = 50, 'q' = q_str, 'page' = 1)
       
       res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", 
-                 query = params, add_headers('X-ApiKey' = API_KEY))
+                 query = params, add_headers('X-ApiKey' = WOS_API_KEY))
       
       if (status_code(res) == 429) {
         stop(" API Rate Limit (429) encountered on initial request. Stopping script execution for the day.")
@@ -208,7 +207,7 @@ for (yr in years_to_process) {
           while (page_num <= reqs_needed) {
             cat(sprintf("   Downloading page %d of %d...\n", page_num, reqs_needed))
             params$page <- page_num
-            page_res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = API_KEY))
+            page_res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = WOS_API_KEY))
             
             if (status_code(page_res) == 429) {
               stop(" API Rate Limit (429) encountered during pagination. Stopping script execution for the day.")
@@ -240,7 +239,7 @@ for (yr in years_to_process) {
     params <- list('db' = 'WOS', 'limit' = 50, 'q' = q_str, 'page' = 1)
     
     res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", 
-               query = params, add_headers('X-ApiKey' = API_KEY))
+               query = params, add_headers('X-ApiKey' = WOS_API_KEY))
     
     if (status_code(res) == 429) {
       stop(" API Rate Limit (429) encountered on initial request. Stopping script execution for the day.")
@@ -259,7 +258,7 @@ for (yr in years_to_process) {
         while (page_num <= reqs_needed) {
           cat(sprintf("   Downloading page %d of %d...\n", page_num, reqs_needed))
           params$page <- page_num
-          page_res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = API_KEY))
+          page_res <- GET("https://api.clarivate.com/apis/wos-starter/v1/documents", query = params, add_headers('X-ApiKey' = WOS_API_KEY))
           
           if (status_code(page_res) == 429) {
             stop(" API Rate Limit (429) encountered during pagination. Stopping script execution for the day.")

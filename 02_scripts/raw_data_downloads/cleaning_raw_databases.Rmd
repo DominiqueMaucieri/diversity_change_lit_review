@@ -47,6 +47,8 @@ google_api_url <- "https://translate.googleapis.com/translate_a/single"
 
 folder_path <- "01_data/inital_raw_database_downloads/"
 
+source(here("", "my_keys.R"))
+
 
 cleanup_text_encoding <- function(text) {
   
@@ -1084,6 +1086,7 @@ no_abstracts_full_ref <- read.csv(here(folder_path, "full_lookup_w_abstracts.csv
 write.csv(no_abstracts_full_ref, here(folder_path, "no_abstracts_full_ref.csv"),
           row.names = FALSE)
 
+collapsed_with_official_IDs_w_abstracts <- read.csv(here(folder_path, "collapsed_with_official_IDs_w_abstracts.csv"))
 
 collapsed_no_abstracts <- collapsed_with_official_IDs_w_abstracts %>%
   filter(is.na(abstract))
